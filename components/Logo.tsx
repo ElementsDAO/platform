@@ -4,8 +4,14 @@ import Link from "next/link";
 
 const Logo: React.FC = () => (
   <Link href="/">
-    <Typography color="primary" mt={3} mb={1} variant="h4">
-      Element
+    <Typography
+      style={{ fontFamily: "Norican" }}
+      color="primary"
+      mt={3}
+      mb={1}
+      variant="h4"
+    >
+      Elements
     </Typography>
   </Link>
 );
