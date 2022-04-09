@@ -8,9 +8,9 @@ import Date from "../components/date";
 import { useWeb3React } from "@web3-react/core";
 import Web3 from "web3";
 
-import { ELEMENT_ADDRESS } from "../config";
+import { ELEMENTS_ADDRESS } from "../config";
 
-const ELEMENT_ABI = require("../contracts/element.json");
+const ELEMENTS_ABI = require("../contracts/elements.json");
 
 export default function Home({ allPostsData }) {
   const { account, library, chainId } = useWeb3React();
@@ -19,8 +19,8 @@ export default function Home({ allPostsData }) {
   const init = async function (_account, _library) {
     const web3 = new Web3(_library.provider);
     const _gameDuelContract = new web3.eth.Contract(
-      ELEMENT_ABI,
-      ELEMENT_ADDRESS
+      ELEMENTS_ABI,
+      ELEMENTS_ADDRESS
     );
     setElementContract(_gameDuelContract);
     let data;
@@ -45,7 +45,7 @@ export default function Home({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>Incentivised crowd investment platform for renewable energy</p>
+        <p>Investment platform for renewable energy</p>
         <p>[Alpha Version 0.1]</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>

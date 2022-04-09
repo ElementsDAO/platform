@@ -4,7 +4,7 @@ import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 
-const name = "ElementDAO";
+const name = "Elements";
 export const siteTitle = "Next.js Sample Website";
 
 
