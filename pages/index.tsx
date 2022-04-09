@@ -1,44 +1,45 @@
-import * as React from "react";
-import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
-import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData } from "../lib/posts";
-import Link from "next/link";
-import Date from "../components/date";
-import { useWeb3React } from "@web3-react/core";
-import Web3 from "web3";
+import * as React from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useWeb3React } from '@web3-react/core'
+import Web3 from 'web3'
+import Layout, { siteTitle } from '../components/layout'
+import utilStyles from '../styles/utils.module.css'
+import { getSortedPostsData } from '../lib/posts'
+import Date from '../components/date'
 
-import { ELEMENTS_ADDRESS } from "../config";
+import { ELEMENTS_ADDRESS } from '../config'
 
-const ELEMENTS_ABI = require("../contracts/elements.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const ELEMENTS_ABI = require('../contracts/elements.json')
 
-export default function Home({ allPostsData }) {
-  const { account, library, chainId } = useWeb3React();
-  const [elementContract, setElementContract] = React.useState(undefined);
+const Home = ({ allPostsData }): any => {
+  const { account, library, chainId } = useWeb3React()
+  const [elementContract, setElementContract] = React.useState(undefined)
 
-  const init = async function (_account, _library) {
-    const web3 = new Web3(_library.provider);
-    const _gameDuelContract = new web3.eth.Contract(
+  const init = async function (_account, _library): Promise<any> {
+    const web3 = new Web3(_library.provider)
+    const tempGameDuelContract = new web3.eth.Contract(
       ELEMENTS_ABI,
       ELEMENTS_ADDRESS
-    );
-    setElementContract(_gameDuelContract);
-    let data;
+    )
+    setElementContract(tempGameDuelContract)
+    let data
 
     try {
-      data = await _gameDuelContract.methods.applications_count().call();
-      console.log("data", data);
+      data = await tempGameDuelContract.methods.applications_count().call()
+      console.log('data', data)
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error)
     }
-  };
+  }
 
   React.useEffect(() => {
     if (!!account && !!library) {
-      init(account, library);
+      init(account, library)
     }
-    return null;
-  }, [account, library, chainId]);
+    return null
+  }, [account, library, chainId])
   return (
     <Layout home>
       <Head>
@@ -54,7 +55,7 @@ export default function Home({ allPostsData }) {
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
               <Link href={`/posts/${id}`}>
-                <a>{title}</a>
+                <div>{title}</div>
               </Link>
               <br />
               <small className={utilStyles.lightText}>
@@ -65,14 +66,16 @@ export default function Home({ allPostsData }) {
         </ul>
       </section>
     </Layout>
-  );
+  )
 }
 
-export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+export const getStaticProps = async (): Promise<any> => {
+  const allPostsData = getSortedPostsData()
   return {
     props: {
       allPostsData,
     },
-  };
+  }
 }
+
+export default Home
