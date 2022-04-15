@@ -22,7 +22,10 @@ const ThemeProvider = dynamic(() => import('../contexts/Theme'), {
 const App: React.FC<AppProps> = (props) => {
   const { pageProps, Component } = props
   const { push } = useRouter()
-  const menuItems = [{ label: 'Home', onClick: () => push('/') }]
+  const menuItems = [
+    { label: 'Home', onClick: () => push('/') },
+    { label: 'Applications', onClick: () => push('/applications') },
+  ]
 
   return (
     <ThemeProvider>

@@ -46,6 +46,9 @@ const Home = ({ allPostsData }): any => {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
+        <h1 className={utilStyles.heading2Xl}>Elements</h1>
+
+        <h2>Invest in green energy!</h2>
         <p>Investment platform for renewable energy</p>
         <p>[Alpha Version 0.1]</p>
       </section>

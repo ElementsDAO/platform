@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react'
 import {
   CssBaseline,
   CustomThemeName,
   ThemeProvider as MuiThemeProvider,
-} from "@iotabots/components";
+} from '@iotabots/components'
 
 export interface ThemeProviderProps {
-  children: JSX.Element;
+  children: JSX.Element
 }
 
-export type Mode = "dark" | "light";
+export type Mode = 'dark' | 'light'
 
 export interface ModeContextProps {
-  mode: Mode;
-  toggleMode?: () => void;
+  mode: Mode
+  toggleMode?: () => void
 }
 
 export const ModeContext = React.createContext<ModeContextProps>({
-  mode: "dark" as Mode,
-});
+  mode: 'dark' as Mode,
+})
 
 const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
-  const { children } = props;
+  const { children } = props
 
-  const [modeState] = React.useState<Mode>("dark" as Mode);
-  const [themeState] = React.useState<CustomThemeName | undefined>("dark");
+  const [modeState] = React.useState<Mode>('dark' as Mode)
+  const [themeState] = React.useState<CustomThemeName | undefined>('dark')
 
   return (
     <MuiThemeProvider theme={themeState}>
@@ -37,7 +37,7 @@ const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
         {children}
       </ModeContext.Provider>
     </MuiThemeProvider>
-  );
-};
+  )
+}
 
-export default ThemeProvider;
+export default ThemeProvider

@@ -26,12 +26,10 @@ const Layout = ({ children, home }): any => (
     </Head>
     <header className={styles.header}>
       {home ? (
-        <h1 className={utilStyles.heading2Xl}>{name}</h1>
+        <div />
       ) : (
         <>
-          <Link href='/'>
-            <div />
-          </Link>
+          <Link href='/' />
           <h2 className={utilStyles.headingLg}>
             <Link href='/'>
               <div className={utilStyles.colorInherit}>{name}</div>
