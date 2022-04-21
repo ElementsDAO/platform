@@ -61,17 +61,6 @@ const ApplicationListItem = ({ address }): any => {
     }
     return null
   }, [account, library, chainId])
-  const createApplication = async (): Promise<any> => {
-    console.log('öp')
-
-    const x = await contract.methods
-      .createApplication(1337)
-      .send({ from: account })
-    console.log('öp', x)
-  }
-  const changeAmount = (value: number): void => {
-    console.log('öp', value)
-  }
   return (
     <Link href={{ pathname: '/applications', query: { addr: address } }}>
       <ListItem alignItems='flex-start'>
