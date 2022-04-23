@@ -28,7 +28,11 @@ const ApplicationDetail = ({ address }): any => {
   const [investAmount, setInvestAmount] = React.useState(100)
   const [investors, setInvestors] = React.useState(undefined)
   // const [address, setAddress] = React.useState(undefined)
-
+  const DemoApplication = {
+    name: 'Demo',
+    description: 'Demo',
+  }
+  const [application, setApplication] = React.useState(DemoApplication)
   const init = async function (_account, _library): Promise<any> {
     let data
     try {
@@ -43,6 +47,23 @@ const ApplicationDetail = ({ address }): any => {
         data = await tempContract.methods.balance().call()
         console.log('balance', data)
         setBalance(data)
+      } catch (error) {
+        console.log('error balance', error)
+      }
+
+      try {
+        data = await tempContract.methods.baseURI().call()
+        console.log('uri', data)
+        try {
+          fetch(data)
+            .then((response) => response.json())
+            .then((res) => {
+              console.log('res', res)
+              setApplication(res)
+            })
+        } catch (error) {
+          console.log('error uri', error)
+        }
       } catch (error) {
         console.log('error balance', error)
       }
@@ -98,8 +119,16 @@ const ApplicationDetail = ({ address }): any => {
       <Typography variant='h2' align='center' color='#fff' gutterBottom>
         Application Detail
       </Typography>
+      <Link href='/applications'>go to application list</Link>
+
+      <Typography variant='h3' color='text.primary'>
+        {application.name}
+      </Typography>
+
+      <Typography variant='body2' color='text.primary'>
+        {application.description}
+      </Typography>
       <Box>
-        <Link href='/applications'>go to application list</Link>
         <p>Balance: {balance} USD</p>
 
         <FormControl>
@@ -114,7 +143,10 @@ const ApplicationDetail = ({ address }): any => {
           />
         </FormControl>
         <Button onClick={invest}>Invest</Button>
-
+        <Typography>
+          Note: You can get some USD Test Tokens{' '}
+          <Link href='/faucet'>here</Link>
+        </Typography>
         <Typography>Investors List</Typography>
         {investors && investors.length ? (
           <ul>
