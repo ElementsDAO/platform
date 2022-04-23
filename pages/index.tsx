@@ -16,6 +16,8 @@ const ELEMENTS_ABI = require('../contracts/elements.json')
 const Home = ({ allPostsData }): any => {
   const { account, library, chainId } = useWeb3React()
   const [elementContract, setElementContract] = React.useState(undefined)
+  const [totalSupply, setTotalSupply] = React.useState(undefined)
+  const [count, setCount] = React.useState(undefined)
 
   const init = async function (_account, _library): Promise<any> {
     const web3 = new Web3(_library.provider)
@@ -29,6 +31,10 @@ const Home = ({ allPostsData }): any => {
     try {
       data = await tempGameDuelContract.methods.applications_count().call()
       console.log('data', data)
+      setCount(data)
+      data = await tempGameDuelContract.methods.totalSupply().call()
+      console.log('totalSupply', data)
+      setTotalSupply(data)
     } catch (error) {
       console.log('error', error)
     }
@@ -51,6 +57,8 @@ const Home = ({ allPostsData }): any => {
         <h2>Invest in green energy!</h2>
         <p>Investment platform for renewable energy</p>
         <p>[Alpha Version 0.1]</p>
+        <p>Projects count: {count}</p>
+        <p>Token Supply: {totalSupply}</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
