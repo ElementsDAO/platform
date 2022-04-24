@@ -12,9 +12,11 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import CircularProgress from '@mui/material/CircularProgress'
+import { useRouter } from 'next/router'
 
 const NewApplication = ({ contract }): any => {
   const { account, library, chainId } = useWeb3React()
+  const router = useRouter()
 
   //   React.useEffect(() => {
   //     if (!!account && !!library) {
@@ -70,6 +72,8 @@ const NewApplication = ({ contract }): any => {
         .createApplication(price, url)
         .send({ from: account })
       console.log('createApplication', x)
+      router.push('/')
+
       setLoading(false)
     } catch (error) {
       console.log('Error uploading file: ', error)
