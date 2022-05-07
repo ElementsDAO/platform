@@ -177,11 +177,7 @@ const Stake = (): any => {
                     }}
                   >
                     <CardMedia
-                      height='100%'
-                      width='100%'
-                      component='img'
                       image={`https://elementary.energy/nfts/${bot}`}
-                      alt='NFT'
                     />
                     <CardContent sx={{ p: 4, pb: '12px !important' }}>
                       <Typography variant='h6' mb={0}>
