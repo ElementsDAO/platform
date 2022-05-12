@@ -25,6 +25,7 @@ const App: React.FC<AppProps> = (props) => {
   const menuItems = [
     { label: 'Home', onClick: () => push('/') },
     { label: 'Applications', onClick: () => push('/applications') },
+    { label: 'Vote', onClick: () => push('/vote') },
   ]
 
   return (
