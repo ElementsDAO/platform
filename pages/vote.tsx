@@ -35,7 +35,7 @@ const Stake = (): any => {
   const [contract, setContract] = React.useState(undefined)
   const [loading, setLoading] = React.useState(false)
   const [proposalCount, setProposalCount] = React.useState(0)
-  const [address, setAddress] = React.useState('')
+  const [address, setAddress] = React.useState(undefined)
   const [loadingMessage, setLoadingMessage] = React.useState('')
   const [formInput, updateFormInput] = React.useState({
     name: '',
@@ -113,7 +113,7 @@ const Stake = (): any => {
       init(account, library)
     }
     return null
-  }, [account, library, chainId])
+  }, [account, library, chainId, address])
 
   return (
     <Layout home>
@@ -127,7 +127,7 @@ const Stake = (): any => {
         <Typography variant='h5' color='text.primary'>
           Liquid Democracy System
         </Typography>
-        {query.addr ? (
+        {address ? (
           <Container sx={{ py: 8 }} maxWidth='md'>
             <Typography variant='h6' color='text.primary'>
               Proposals
@@ -135,6 +135,19 @@ const Stake = (): any => {
             <ProposalList contract={contract} count={proposalCount} />
             <AddVoter contract={contract} />
             <NewProposal contract={contract} />
+            <hr />
+            <hr />
+            <Button
+              disabled={loading}
+              variant='contained'
+              onClick={() => {
+                setAddress(undefined)
+                router.push('/vote')
+              }}
+              className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
+            >
+              Create new Governance
+            </Button>
           </Container>
         ) : (
           <Container sx={{ py: 8 }} maxWidth='md'>

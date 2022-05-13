@@ -25,7 +25,8 @@ const ApplicationDetail = ({ address }): any => {
   const [balance, setBalance] = React.useState(undefined)
   const [contract, setContract] = React.useState(undefined)
   const [usdt, setUsdt] = React.useState(undefined)
-  const [investAmount, setInvestAmount] = React.useState(100)
+  const [amount, setAmount] = React.useState(undefined)
+  const [investAmount, setInvestAmount] = React.useState(10)
   const [investors, setInvestors] = React.useState(undefined)
   // const [address, setAddress] = React.useState(undefined)
   const DemoApplication = {
@@ -47,6 +48,9 @@ const ApplicationDetail = ({ address }): any => {
         data = await tempContract.methods.balance().call()
         console.log('balance', data)
         setBalance(data)
+        data = await tempContract.methods.amount().call()
+        console.log('amount', data)
+        setAmount(data)
       } catch (error) {
         console.log('error balance', error)
       }
@@ -92,14 +96,17 @@ const ApplicationDetail = ({ address }): any => {
 
   const invest = async (): Promise<any> => {
     console.log('öp')
+    const web3 = new Web3(library.provider)
+    const correctTnvestAmount = web3.utils.toBN(investAmount * 10 ** 18) // investAmount * 10000000000
+    console.log('correctTnvestAmount', correctTnvestAmount)
 
     const res = await usdt.methods
-      .approve(address, investAmount)
+      .approve(address, correctTnvestAmount)
       .send({ from: account })
     console.log('approval', res)
 
     const x = await contract.methods
-      .invest(investAmount)
+      .invest(correctTnvestAmount)
       .send({ from: account })
     console.log('öp', x)
   }
@@ -129,23 +136,32 @@ const ApplicationDetail = ({ address }): any => {
         {application.description}
       </Typography>
       <Box>
-        <p>Balance: {balance} USD</p>
-
+        <p>Investment goal: {amount} USD</p>
+        <p>Current: {balance / 10 ** 18} USD</p>
+        <Typography variant='h5' color='#fff' gutterBottom>
+          Invest now!
+        </Typography>
         <FormControl>
           <InputLabel htmlFor='my-input'>Invest amount (USD)</InputLabel>
           <Input
             onChange={(e) => changeAmount(parseInt(e.target.value, 10))}
             id='my-input'
             type='number'
-            placeholder='100'
+            placeholder='10'
             aria-describedby='USD'
             value={investAmount}
           />
         </FormControl>
         <Button onClick={invest}>Invest</Button>
         <Typography>
-          Note: You can get some USD Test Tokens{' '}
-          <Link href='/faucet'>here</Link>
+          Note: You can get some USDT Test Tokens{' '}
+          <a
+            href='https://testnet.binance.org/faucet-smart'
+            target='_blank'
+            rel='noreferrer'
+          >
+            here
+          </a>
         </Typography>
         <Typography>Investors List</Typography>
         {investors && investors.length ? (
