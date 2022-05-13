@@ -25,7 +25,15 @@ const App: React.FC<AppProps> = (props) => {
   const menuItems = [
     { label: 'Home', onClick: () => push('/') },
     { label: 'Applications', onClick: () => push('/applications') },
-    { label: 'Vote', onClick: () => push('/vote') },
+    { label: 'Experts', onClick: () => push('/experts') },
+    {
+      label: 'Vote',
+      onClick: () =>
+        push({
+          pathname: '/vote',
+          query: { addr: '0x30DF431A26473da79909878E42574768C4dA7D8e' },
+        }),
+    },
   ]
 
   return (
