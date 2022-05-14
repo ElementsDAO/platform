@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  CssBaseline,
-  CustomThemeName,
-  ThemeProvider as MuiThemeProvider,
-} from '@iotabots/components'
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material'
 
 export interface ThemeProviderProps {
   children: JSX.Element
@@ -24,18 +20,12 @@ const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
   const { children } = props
 
   const [modeState] = React.useState<Mode>('dark' as Mode)
-  const [themeState] = React.useState<CustomThemeName | undefined>('dark')
+  const [themeState] = React.useState<'light' | 'dark' | undefined>('dark')
 
   return (
     <MuiThemeProvider theme={themeState}>
-      <ModeContext.Provider
-        value={{
-          mode: modeState,
-        }}
-      >
-        <CssBaseline />
-        {children}
-      </ModeContext.Provider>
+      <CssBaseline />
+      {children}
     </MuiThemeProvider>
   )
 }

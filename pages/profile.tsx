@@ -1,9 +1,10 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { Section, SectionHeader } from '@iotabots/components'
 import { Container, Grid } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import * as React from 'react'
 import { useRouter } from 'next/router'
+import { SectionHeader } from '../components/SectionHeader'
+import { Section } from '../components/Section'
 import Layout from '../components/layout'
 
 const Profile: React.FC = (props: any) => {

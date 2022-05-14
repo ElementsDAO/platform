@@ -1,5 +1,4 @@
 import { Web3Provider } from '@ethersproject/providers'
-import { Section, SectionHeader } from '@iotabots/components'
 import {
   Button,
   Card,
@@ -12,6 +11,8 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import * as React from 'react'
 import { useRouter } from 'next/router'
+import { Section } from '../components/Section'
+import { SectionHeader } from '../components/SectionHeader'
 import Layout from '../components/layout'
 
 const Experts: React.FC = (props: any) => {
