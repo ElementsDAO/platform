@@ -3,14 +3,13 @@ import { Container, Grid } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import { SectionHeader } from '../components/SectionHeader'
-import { Section } from '../components/Section'
-import Layout from '../components/layout'
+import { SectionHeader } from '../src/components/SectionHeader'
+import { Section } from '../src/components/Section'
+import Layout from '../src/components/layout'
 
 const Profile: React.FC = (props: any) => {
   const [bots, setBots] = React.useState<Array<any>>([])
   const context = useWeb3React<Web3Provider>()
-  const router = useRouter()
   const { account, active } = context
   const { addresses } = props
 

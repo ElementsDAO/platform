@@ -11,9 +11,9 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import { Section } from '../components/Section'
-import { SectionHeader } from '../components/SectionHeader'
-import Layout from '../components/layout'
+import { Section } from '../src/components/Section'
+import { SectionHeader } from '../src/components/SectionHeader'
+import Layout from '../src/components/layout'
 
 const Experts: React.FC = (props: any) => {
   const [bots, setBots] = React.useState<Array<any>>([])

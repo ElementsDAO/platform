@@ -1,13 +1,12 @@
 import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import styles from './layout.module.css'
 
 const name = 'Elements'
 export const siteTitle = 'Next.js Sample Website'
 
 const Layout = ({ children, home }): any => (
-  <div className={styles.container}>
+  <div>
     <Head>
       <link rel='icon' href='/favicon.ico' />
       <meta
@@ -23,7 +22,7 @@ const Layout = ({ children, home }): any => (
       <meta name='og:title' content={siteTitle} />
       <meta name='twitter:card' content='summary_large_image' />
     </Head>
-    <header className={styles.header}>
+    <header>
       {home ? (
         <div />
       ) : (
@@ -39,7 +38,7 @@ const Layout = ({ children, home }): any => (
     </header>
     <main>{children}</main>
     {!home && (
-      <div className={styles.backToHome}>
+      <div>
         <Link href='/'>
           <div>← Back to home</div>
         </Link>

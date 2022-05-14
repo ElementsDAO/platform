@@ -3,12 +3,12 @@ import Head from 'next/head'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { Button, Typography } from '@mui/material'
-import Layout from '../components/layout'
+import Layout from '../src/components/layout'
 
 import { USDT_ADDRESS } from '../config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ERC20_ABI = require('../contracts/erc20.json')
+const ERC20_ABI = require('../src/contracts/erc20.json')
 
 const Faucet = (): any => {
   const { account, library, chainId } = useWeb3React()

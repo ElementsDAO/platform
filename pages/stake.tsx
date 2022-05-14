@@ -12,16 +12,16 @@ import {
   Typography,
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import Layout from '../components/layout'
+import Layout from '../src/components/layout'
 
 import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '../config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ELEMENTS_ABI = require('../contracts/elements.json')
+const ELEMENTS_ABI = require('../src/contracts/elements.json')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const NFT_STAKE_ABI = require('../contracts/nft_stake.json')
+const NFT_STAKE_ABI = require('../src/contracts/nft_stake.json')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const NFT_ABI = require('../contracts/nft.json')
+const NFT_ABI = require('../src/contracts/nft.json')
 
 const DepositInfo = {
   stake: 0,

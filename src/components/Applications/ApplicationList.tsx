@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import ApplicationListItem from './ApplicationListItem'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const APPLICATION_ABI = require('../../contracts/applications.json')
+const APPLICATION_ABI = require('../../../src/contracts/applications.json')
 
 const ApplicationList = ({ contract, count }): any => {
   const { account, library, chainId } = useWeb3React()

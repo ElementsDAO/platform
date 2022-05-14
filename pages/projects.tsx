@@ -4,21 +4,20 @@ import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
-import Layout from '../components/layout'
-import { getSortedPostsData } from '../lib/posts'
+import Layout from '../src/components/layout'
 
 import { ELEMENTS_ADDRESS } from '../config'
 
-import NewApplication from '../components/Applications/NewApplication'
-import ApplicationList from '../components/Applications/ApplicationList'
-import ApplicationDetail from '../components/Applications/ApplicationDetail'
+import NewApplication from '../src/components/Applications/NewApplication'
+import ApplicationList from '../src/components/Applications/ApplicationList'
+import ApplicationDetail from '../src/components/Applications/ApplicationDetail'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ELEMENTS_ABI = require('../contracts/elements.json')
+const ELEMENTS_ABI = require('../src/contracts/elements.json')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const APPLICATION_ABI = require('../contracts/applications.json')
+const APPLICATION_ABI = require('../src/contracts/applications.json')
 
-const Home = ({ allPostsData }): any => {
+const Home = (): any => {
   const { query } = useRouter()
 
   const { account, library, chainId } = useWeb3React()
@@ -112,15 +111,6 @@ const Home = ({ allPostsData }): any => {
       </section>
     </Layout>
   )
-}
-
-export const getStaticProps = async (): Promise<any> => {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData,
-    },
-  }
 }
 
 export default Home

@@ -11,7 +11,7 @@ import Web3 from 'web3'
 import Link from 'next/link'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const APPLICATION_ABI = require('../../contracts/applications.json')
+const APPLICATION_ABI = require('../../../src/contracts/applications.json')
 
 const ApplicationListItem = ({ address }): any => {
   console.log('ApplicationListItem::address', address)
