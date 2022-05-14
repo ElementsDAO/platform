@@ -25,20 +25,8 @@ interface MyAppProps extends AppProps {
 
 const App: React.FC<MyAppProps> = (props) => {
   const { pageProps, emotionCache = clientSideEmotionCache, Component } = props
+
   const { push } = useRouter()
-  const menuItems = [
-    { label: 'Home', onClick: () => push('/') },
-    { label: 'Applications', onClick: () => push('/applications') },
-    { label: 'Experts', onClick: () => push('/experts') },
-    {
-      label: 'Vote',
-      onClick: () =>
-        push({
-          pathname: '/vote',
-          query: { addr: '0x30DF431A26473da79909878E42574768C4dA7D8e' },
-        }),
-    },
-  ]
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -51,8 +39,6 @@ const App: React.FC<MyAppProps> = (props) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Navigation
-            menu={menuItems}
-            mobileMenu={menuItems}
             identity
             logo={<Logo />}
             onClickProfile={() => push('/profile')}

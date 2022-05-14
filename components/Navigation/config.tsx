@@ -1,11 +1,10 @@
-export const PROFILE = {
-  label: 'Profile',
-  href: '/profile',
+export const HOME = {
+  label: 'Home',
+  href: '/',
 }
-export const BOTS = {
-  label: 'Bots',
-  href: '/bots',
-  active: true,
+export const EXPERTS = {
+  label: 'Experts',
+  href: '/experts',
 }
 export const PROJECTS = {
   label: 'Projects',
@@ -15,7 +14,11 @@ export const FAQ = {
   label: 'FAQ',
   href: '/faq',
 }
+export const PROFILE = {
+  label: 'Profile',
+  href: '/profile',
+}
 
-export const MENU = [BOTS, PROJECTS, FAQ]
+export const MENU = [HOME, PROJECTS, EXPERTS]
 
-export const MOBILE_MENU = [PROFILE, ...MENU]
+export const MOBILE_MENU = [...MENU, PROFILE]

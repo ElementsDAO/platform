@@ -7,21 +7,21 @@ import Logo from '../Logo'
 import Menu from './Menu'
 import IdentityMenu from './IdentityMenu'
 import { MENU, MOBILE_MENU } from './config'
-import { MenuItemProps } from './MenuItem'
+
+export interface MenuItemProps {
+  label: string
+  href: string
+}
 
 export interface NavigationProps {
   identity?: boolean
   logo?: JSX.Element
   onClickProfile?: () => void
-  menu: MenuItemProps[]
-  mobileMenu: MenuItemProps[]
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
   const {
     identity = true,
-    menu = MENU,
-    mobileMenu = MOBILE_MENU,
     logo,
     onClickProfile,
   } = props
@@ -29,20 +29,21 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
     <AppBar
       sx={{
         position: 'fixed',
+        p: 0,
         zIndex: 11,
-        top: { xs: 40, md: 64 },
-        left: { xs: 40, md: 64 },
-        width: { xs: 'calc(100% - 80px)', md: 'calc(100% - 128px)' },
+        top: 0,
+        left: 0,
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         flexShrink: 1,
         boxSizing: 'border-box',
-        background: 'rgba(0,0,0,0.5)',
+        bgcolor: 'background.paper',
         backdropFilter: 'blur(8px)',
-        boxShadow: 'none',
-        borderStyle: 'solid',
-        borderColor: 'rgba(0,0,0,0.5)',
-        borderRadius: '8px',
+        boxShadow: 1,
+        '& .MuiToolbar-root': {
+          px: 2
+        }
       }}
     >
       <Toolbar
@@ -53,9 +54,9 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         }}
       >
         {logo || <Logo />}
-        <Menu menu={menu} />
+        <Menu />
         {identity ? <IdentityMenu onClick={onClickProfile} /> : <Box />}
-        <MobileMenu menu={mobileMenu} />
+        <MobileMenu />
       </Toolbar>
     </AppBar>
   )

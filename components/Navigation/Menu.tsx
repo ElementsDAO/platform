@@ -1,41 +1,33 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import MenuItem, { MenuItemProps } from './MenuItem'
+import Button from '../Button'
+import { useRouter } from 'next/router'
+import { MenuItemProps } from './index'
+import { MENU } from './config'
 
-interface MenuProps {
-  menu: MenuItemProps[]
-}
 
-const Menu: React.FC<MenuProps> = (props) => {
-  const { menu } = props
+const Menu: React.FC = () => {
+  const history = useRouter()
+
   return (
-    <Box
-      sx={{
-        position: 'fixed',
-        top: 7,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: { xs: 'none', md: 'block' },
-        bgcolor: 'background.paper',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: 'rgba(0,0,0,0.5)',
-        p: '4px',
-        borderRadius: '8px',
-        height: 50,
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          borderRadius: '6px',
-          overflow: 'hidden',
-          height: 42,
-        }}
-      >
-        {menu.map((item) => (
-          <MenuItem {...item} key={item.label} />
-        ))}
+    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+      <Box sx={{ display: 'flex' }}>
+        {MENU.map((item) => {
+          const active = history.pathname === item.href
+          console.log('item.href', item)
+          console.log('history.pathname', history.pathname)
+          console.log('active', active)
+          return (
+            <Button
+              sx={{ mr: 2 }}
+              onClick={() => history.push(item.href)}
+              color={active ? 'primary' : 'secondary'}
+              key={item.label}
+            >
+              {item.label}
+            </Button>
+          )
+        })}
       </Box>
     </Box>
   )
