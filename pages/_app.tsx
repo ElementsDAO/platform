@@ -3,9 +3,9 @@ import '../styles/global.css'
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
 import dynamic from 'next/dynamic'
-import { Navigation } from '@iotabots/components'
 import { AppProps } from 'next/dist/shared/lib/router/router'
 import { useRouter } from 'next/router'
+import { Navigation } from '../components/Navigation'
 import Logo from '../components/Logo'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
