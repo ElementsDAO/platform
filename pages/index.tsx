@@ -9,6 +9,7 @@ import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
 
 import { ELEMENTS_ADDRESS } from '../config'
+import { Typography } from '@mui/material'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('../contracts/elements.json')
@@ -52,7 +53,7 @@ const Home = ({ allPostsData }): any => {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <h1 className={utilStyles.heading2Xl}>Elements</h1>
+        <Typography variant='h1' className={utilStyles.heading2Xl}>Elements</Typography>
 
         <h2>Invest in green energy!</h2>
         <p>Investment platform for renewable energy</p>

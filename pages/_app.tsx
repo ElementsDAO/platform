@@ -7,20 +7,24 @@ import { Navigation } from '../components/Navigation'
 import Logo from '../components/Logo'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from '../src/theme'
+import Head from 'next/head'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import createEmotionCache from '../src/createEmotionCache'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
   library.pollingInterval = 1000
   return library
 }
 
-// const ThemeProvider = dynamic(() => import('../contexts/Theme'), {
-//   ssr: false,
-// })
+const clientSideEmotionCache = createEmotionCache();
 
-const App: React.FC<AppProps> = (props) => {
-  const { pageProps, Component } = props
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+const App: React.FC<MyAppProps> = (props) => {
+  const { pageProps, emotionCache = clientSideEmotionCache, Component } = props
   const { push } = useRouter()
   const menuItems = [
     { label: 'Home', onClick: () => push('/') },
@@ -37,19 +41,26 @@ const App: React.FC<AppProps> = (props) => {
   ]
 
   return (
-    <ThemeProvider theme={theme}>
-      {/* <CssBaseline /> */}
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <Navigation
-          menu={menuItems}
-          mobileMenu={menuItems}
-          identity
-          logo={<Logo />}
-          onClickProfile={() => push('/profile')}
-        />
-        <Component {...pageProps} />
-      </Web3ReactProvider>
-    </ThemeProvider>
+    <Web3ReactProvider getLibrary={getLibrary}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
+          <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600&display=swap" rel="stylesheet" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Navigation
+            menu={menuItems}
+            mobileMenu={menuItems}
+            identity
+            logo={<Logo />}
+            onClickProfile={() => push('/profile')}
+          />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CacheProvider>
+    </Web3ReactProvider>
   )
 }
 
