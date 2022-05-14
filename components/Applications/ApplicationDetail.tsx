@@ -6,12 +6,10 @@ import {
   Input,
   InputLabel,
   Typography,
-} from '@iotabots/components'
+} from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import Link from 'next/link'
-
-import Balance from '../ERC20/Balance'
 
 import { USDT_ADDRESS } from '../../config'
 // eslint-disable-next-line @typescript-eslint/no-var-requires

@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  Grid,
-  Input,
-  InputLabel,
-  Typography,
-} from '@iotabots/components'
+import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import CircularProgress from '@mui/material/CircularProgress'

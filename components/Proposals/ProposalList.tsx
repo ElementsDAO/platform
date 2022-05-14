@@ -1,18 +1,5 @@
 import React from 'react'
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  FormControl,
-  Input,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-} from '@iotabots/components'
+import { Box, List } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import Link from 'next/link'

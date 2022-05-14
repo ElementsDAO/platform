@@ -1,21 +1,11 @@
 import * as React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import {
-  Box,
-  Button,
-  Card,
-  CardMedia,
-  Container,
-  Grid,
-  Input,
-  Typography,
-} from '@iotabots/components'
+import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import CircularProgress from '@mui/material/CircularProgress'
-import Layout, { siteTitle } from '../components/layout'
+import Layout from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import NewProposal from '../components/Proposals/NewProposal'
 import ProposalList from '../components/Proposals/ProposalList'

@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  Typography,
-} from '@iotabots/components'
+import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { USDT_ADDRESS } from '../../config'

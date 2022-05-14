@@ -4,19 +4,16 @@ import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import {
-  Box,
   Button,
   Card,
   CardContent,
   CardMedia,
   Grid,
-  InputLabel,
   Typography,
-} from '@iotabots/components'
+} from '@mui/material'
 import { useRouter } from 'next/router'
-import Layout, { siteTitle } from '../components/layout'
+import Layout from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
 
 import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '../config'
 

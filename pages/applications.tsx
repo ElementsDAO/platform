@@ -1,18 +1,10 @@
 import * as React from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import {
-  Box,
-  Button,
-  FormControl,
-  Input,
-  InputLabel,
-  Typography,
-} from '@iotabots/components'
+import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
-import Layout, { siteTitle } from '../components/layout'
+import Layout from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 
