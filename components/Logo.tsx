@@ -5,7 +5,7 @@ import Link from 'next/link'
 const Logo: React.FC = () => (
   <Link href='/'>
     <Typography
-      style={{ fontFamily: 'Norican' }}
+      style={{ fontFamily: 'Exo 2' }}
       color='primary'
       mt={3}
       mb={1}

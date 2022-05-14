@@ -1,12 +1,12 @@
 import * as React from 'react'
-import '../styles/global.css'
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
-import dynamic from 'next/dynamic'
 import { AppProps } from 'next/dist/shared/lib/router/router'
 import { useRouter } from 'next/router'
 import { Navigation } from '../components/Navigation'
 import Logo from '../components/Logo'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import theme from '../src/theme'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getLibrary = (provider: any): Web3Provider => {
@@ -15,9 +15,9 @@ const getLibrary = (provider: any): Web3Provider => {
   return library
 }
 
-const ThemeProvider = dynamic(() => import('../contexts/Theme'), {
-  ssr: false,
-})
+// const ThemeProvider = dynamic(() => import('../contexts/Theme'), {
+//   ssr: false,
+// })
 
 const App: React.FC<AppProps> = (props) => {
   const { pageProps, Component } = props
@@ -37,7 +37,8 @@ const App: React.FC<AppProps> = (props) => {
   ]
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
+      {/* <CssBaseline /> */}
       <Web3ReactProvider getLibrary={getLibrary}>
         <Navigation
           menu={menuItems}

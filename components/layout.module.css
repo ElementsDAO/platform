@@ -16,8 +16,15 @@
 }
 
 @font-face {
-  font-family: 'Norican';
-  src: url('../public/assets/fonts/Norican-Regular.ttf');
-  font-weight: 400;
+  font-family: 'Exo 2';
+  src: url('../public/Exo2-Light.ttf');
+  font-weight: 300;
   font-style: normal;
-  }
+}
+
+@font-face {
+  font-family: 'Exo 2';
+  src: url('../public/Exo2-SemiBold.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
