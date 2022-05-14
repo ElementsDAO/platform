@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
+import { Alert } from '@iotabots/components'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
@@ -14,7 +15,7 @@ import { ELEMENTS_ADDRESS } from '../config'
 const ELEMENTS_ABI = require('../contracts/elements.json')
 
 const Home = ({ allPostsData }): any => {
-  const { account, library, chainId } = useWeb3React()
+  const { account, chainId, library, error: connectError } = useWeb3React()
   const [elementContract, setElementContract] = React.useState(undefined)
   const [totalSupply, setTotalSupply] = React.useState(undefined)
   const [count, setCount] = React.useState(undefined)
@@ -51,6 +52,7 @@ const Home = ({ allPostsData }): any => {
       <Head>
         <title>{siteTitle}</title>
       </Head>
+      {connectError && <Alert severity='error'>{connectError.message}</Alert>}
       <section className={utilStyles.headingMd}>
         <h1 className={utilStyles.heading2Xl}>Elements</h1>
 

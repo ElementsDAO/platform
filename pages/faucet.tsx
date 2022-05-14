@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -22,7 +23,7 @@ import { USDT_ADDRESS } from '../config'
 const ERC20_ABI = require('../contracts/erc20.json')
 
 const Faucet = (): any => {
-  const { account, library, chainId } = useWeb3React()
+  const { account, library, chainId, error: connectError } = useWeb3React()
   const [contract, setContract] = React.useState(undefined)
 
   const init = async function (_account, _library): Promise<any> {
@@ -54,6 +55,7 @@ const Faucet = (): any => {
       <Head>
         <title>Faucet</title>
       </Head>
+      {connectError && <Alert severity='error'>{connectError.message}</Alert>}
       <section className={utilStyles.headingMd}>
         <Typography
           sx={{ display: 'inline' }}

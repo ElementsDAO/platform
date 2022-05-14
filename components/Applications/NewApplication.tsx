@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -27,6 +28,8 @@ const NewApplication = ({ contract }): any => {
 
   const client = ipfsHttpClient({ url: 'https://ipfs.infura.io:5001/api/v0' })
 
+  const [error, setError] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
   const [loading, setLoading] = React.useState(false)
   const [loadingMessage, setLoadingMessage] = React.useState('')
   const [fileUrl, setFileUrl] = React.useState<null | string>(null)
@@ -37,33 +40,56 @@ const NewApplication = ({ contract }): any => {
   })
 
   const onChange = async (e: any): Promise<any> => {
-    const file = e.target.files[0]
     try {
-      const added = await client.add(file, {
-        progress: (prog: any) => console.log(`received: ${prog}`),
-      })
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
-      setFileUrl(url)
-    } catch (error) {
-      console.log('Error uploading file: ', error)
+      const file = e.target.files[0]
+      if (file) {
+        const added = await client.add(file, {
+          progress: (prog: any) => console.log(`received: ${prog}`),
+        })
+        const url = `https://ipfs.infura.io/ipfs/${added.path}`
+        setFileUrl(url)
+      }
+    } catch (err) {
+      console.log('Error uploading file: ', err)
     }
   }
 
-  const createApplication = async (): Promise<any> => {
-    console.log('öp')
+  // basic validation
+  const validForm = (): boolean => {
+    let valid = true
+    if (formInput.price === '') {
+      valid = false
+    }
+    if (formInput.name === '') {
+      valid = false
+    }
+    if (formInput.description === '') {
+      valid = false
+    }
+    return valid
+  }
 
-    setLoadingMessage('create Application...')
-    setLoading(true)
-    const { name, description, price } = formInput
-    // if (!name || !description || !price || !fileUrl) return
-    console.log('first, upload to IPFS')
-    /* first, upload to IPFS */
-    const data = JSON.stringify({
-      name,
-      description,
-      image: fileUrl,
-    })
+  const createApplication = async (): Promise<any> => {
     try {
+      console.log('öp')
+      setLoadingMessage('create Application...')
+      setLoading(true)
+      const { name, description, price } = formInput
+      /**
+       * Basic validation
+       */
+      if (!validForm()) {
+        console.error('the form is not valid')
+        setLoading(false)
+        throw new Error('Please check your input')
+      }
+      console.log('first, upload to IPFS')
+      /* first, upload to IPFS */
+      const data = JSON.stringify({
+        name,
+        description,
+        image: fileUrl,
+      })
       const added = await client.add(data)
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
@@ -73,10 +99,12 @@ const NewApplication = ({ contract }): any => {
         .send({ from: account })
       console.log('createApplication', x)
       router.push('/')
-
       setLoading(false)
-    } catch (error) {
-      console.log('Error uploading file: ', error)
+    } catch (err) {
+      setLoading(false)
+      setError(true)
+      setErrorMessage(err.message)
+      console.error('Error uploading file: ', err)
     }
   }
   return (
@@ -88,6 +116,7 @@ const NewApplication = ({ contract }): any => {
         </Typography>
         {/* End hero unit */}
       </Container>
+      {error && <Alert severity='error'>{errorMessage}</Alert>}
       <Container sx={{ py: 8 }} maxWidth='md'>
         <Grid
           container
@@ -113,16 +142,19 @@ const NewApplication = ({ contract }): any => {
               }}
             >
               <Input
+                required
                 disabled={loading}
-                placeholder='Name'
+                placeholder='Name (*)'
                 className=''
                 onChange={(e: any) =>
                   updateFormInput({ ...formInput, name: e.target.value })
                 }
+                error={formInput.name === ''}
               />
               <Input
+                required
                 disabled={loading}
-                placeholder='Description'
+                placeholder='Description (*)'
                 className=''
                 onChange={(e: any) =>
                   updateFormInput({
@@ -130,15 +162,18 @@ const NewApplication = ({ contract }): any => {
                     description: e.target.value,
                   })
                 }
+                error={formInput.description === ''}
               />
               <Input
+                required
                 disabled={loading}
                 type='number'
-                placeholder='Price in USD'
+                placeholder='Price in USD (*)'
                 className=''
                 onChange={(e: any) =>
                   updateFormInput({ ...formInput, price: e.target.value })
                 }
+                error={formInput.price === ''}
               />
               <Input
                 disabled={loading}
