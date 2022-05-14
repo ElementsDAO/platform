@@ -1,6 +1,6 @@
 import React from 'react'
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material'
-import theme from './theme'
+import theme from './Theme'
 
 export interface ThemeProviderProps {
   children: React.ReactNode

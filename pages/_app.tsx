@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 import { Navigation } from '../src/components/Navigation'
 import Logo from '../src/components/Logo'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import theme from '../src/theme'
+import theme from '../src/theme/theme'
 import Head from 'next/head'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import createEmotionCache from '../src/createEmotionCache'
+import createEmotionCache from '../src/theme/createEmotionCache'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
