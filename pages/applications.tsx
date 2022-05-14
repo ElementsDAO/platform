@@ -5,7 +5,6 @@ import Web3 from 'web3'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 
 import { ELEMENTS_ADDRESS } from '../config'
@@ -77,7 +76,7 @@ const Home = ({ allPostsData }): any => {
       <Head>
         <title>Applications</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section >
         {query.addr ? (
           <ApplicationDetail address={query.addr} />
         ) : (
@@ -88,7 +87,7 @@ const Home = ({ allPostsData }): any => {
                   <>
                     <Button
                       onClick={() => setState('list')}
-                      // href={{ pathname: '/applications', query: { new: 'true' } }}
+                    // href={{ pathname: '/applications', query: { new: 'true' } }}
                     >
                       Back
                     </Button>
@@ -99,7 +98,7 @@ const Home = ({ allPostsData }): any => {
                   <>
                     <Button
                       onClick={() => setState('new')}
-                      // href={{ pathname: '/applications', query: { new: 'true' } }}
+                    // href={{ pathname: '/applications', query: { new: 'true' } }}
                     >
                       Create new Application
                     </Button>

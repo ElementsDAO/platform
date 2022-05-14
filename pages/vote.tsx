@@ -6,7 +6,6 @@ import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import CircularProgress from '@mui/material/CircularProgress'
 import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 import NewProposal from '../components/Proposals/NewProposal'
 import ProposalList from '../components/Proposals/ProposalList'
 import AddVoter from '../components/Proposals/AddVoter'
@@ -110,7 +109,7 @@ const Stake = (): any => {
       <Head>
         <title>Vote</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section>
         <Typography variant='h3' color='text.primary'>
           ElementsDAO
         </Typography>
@@ -150,7 +149,7 @@ const Stake = (): any => {
               direction='row'
               alignItems='center'
               justifyContent='center'
-              // style={{ minHeight: '100vh' }}
+            // style={{ minHeight: '100vh' }}
             >
               <Grid item xs={8}>
                 <Typography
@@ -220,7 +219,7 @@ const Stake = (): any => {
               direction='row'
               alignItems='center'
               justifyContent='center'
-              // style={{ minHeight: '100vh' }}
+            // style={{ minHeight: '100vh' }}
             >
               <Grid item xs={8}>
                 <Typography

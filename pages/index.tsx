@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import Layout, { siteTitle } from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/date'
 
@@ -52,8 +51,8 @@ const Home = ({ allPostsData }): any => {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <Typography variant='h1' className={utilStyles.heading2Xl}>Elements</Typography>
+      <section >
+        <Typography variant='h1' >Elements</Typography>
 
         <h2>Invest in green energy!</h2>
         <p>Investment platform for renewable energy</p>
@@ -61,16 +60,16 @@ const Home = ({ allPostsData }): any => {
         <p>Projects count: {count}</p>
         <p>Token Supply: {totalSupply}</p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
+      <section>
+        <h2>Blog</h2>
+        <ul>
           {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
+            <li key={id}>
               <Link href={`/posts/${id}`}>
                 <div>{title}</div>
               </Link>
               <br />
-              <small className={utilStyles.lightText}>
+              <small>
                 <Date dateString={date} />
               </small>
             </li>

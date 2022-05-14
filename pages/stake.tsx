@@ -13,7 +13,6 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 
 import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '../config'
 
@@ -132,7 +131,7 @@ const Stake = (): any => {
       <Head>
         <title>Stake</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section>
         <Typography variant='h2' color='text.primary'>
           Stake ELE Tokens.
         </Typography>
@@ -150,7 +149,7 @@ const Stake = (): any => {
         </Typography>
         <Button onClick={() => stake()}>Stake</Button>
       </section>
-      <section className={utilStyles.headingMd}>
+      <section>
         <Typography variant='h2' color='text.primary'>
           Stake Elementary Energy NFTs.
         </Typography>

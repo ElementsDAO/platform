@@ -4,7 +4,6 @@ import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { Button, Typography } from '@mui/material'
 import Layout from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 
 import { USDT_ADDRESS } from '../config'
 
@@ -44,7 +43,7 @@ const Faucet = (): any => {
       <Head>
         <title>Faucet</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section>
         <Typography
           sx={{ display: 'inline' }}
           variant='body2'

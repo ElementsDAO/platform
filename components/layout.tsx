@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
 
 const name = 'Elements'
 export const siteTitle = 'Next.js Sample Website'
@@ -30,9 +29,9 @@ const Layout = ({ children, home }): any => (
       ) : (
         <>
           <Link href='/' />
-          <h2 className={utilStyles.headingLg}>
+          <h2>
             <Link href='/'>
-              <div className={utilStyles.colorInherit}>{name}</div>
+              <div>{name}</div>
             </Link>
           </h2>
         </>
