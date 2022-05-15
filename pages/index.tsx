@@ -1,17 +1,17 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Web3 from 'web3'
-
 import { useWeb3React } from '@web3-react/core'
-import { Container, Typography } from '@mui/material'
-
+import { Alert, Container, Typography } from '@mui/material'
 import config from '@config'
 import Base from '@layouts/Base'
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
 
 const Home: React.FC = () => {
-  const { account, library, chainId } = useWeb3React()
+  const { account, chainId, library, error: connectError } = useWeb3React()
+  const [elementContract, setElementContract] = React.useState(undefined)
   const [totalSupply, setTotalSupply] = React.useState(undefined)
   const [count, setCount] = React.useState(undefined)
 
@@ -46,6 +46,7 @@ const Home: React.FC = () => {
         <title>Home</title>
       </Head>
       <Container maxWidth='sm'>
+        {connectError && <Alert severity='error'>{connectError.message}</Alert>}
         <Typography color='text.secondary'>[Alpha Version]</Typography>
         <Typography variant='h2' fontWeight='bold'>
           Elements
