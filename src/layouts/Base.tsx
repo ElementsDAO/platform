@@ -4,10 +4,11 @@ import { Navigation } from '../components/Navigation'
 import Logo from '../components/Logo'
 import { useRouter } from 'next/router'
 
-const Base: React.FC<BoxProps> = ({ children }) => {
+const Base: React.FC<BoxProps> = (props) => {
+  const { children, sx } = props
   const { push } = useRouter()
   return (
-    <Box pt='100px'>
+    <Box pt='100px' sx={sx}>
       <Navigation
         identity
         logo={<Logo />}

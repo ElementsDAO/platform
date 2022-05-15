@@ -29,7 +29,7 @@ export const IdentityMenu: React.FC<BoxProps> = (props) => {
     }
 
     const array = data.split('\n')
-    // for (var i = 0; i < array.length; i++) {
+
     for (let index = 0; index < array.length - 1; index += 1) {
       const botData = array[index].split(':')
       const obj = {
@@ -38,8 +38,6 @@ export const IdentityMenu: React.FC<BoxProps> = (props) => {
       }
       airdropAddresses.push(obj)
     }
-
-    console.log('NFT Components: IdentityMenu.tsx, account', account)
 
     const iotabots: number[] = []
     airdropAddresses.forEach((obj) => {

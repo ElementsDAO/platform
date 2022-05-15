@@ -8,7 +8,7 @@ const Project = () => {
   const { slug } = router.query
 
   return (
-    <Base>
+    <Base sx={{ pt: '64px' }}>
       <Detail address={slug} />
     </Base>
   )
