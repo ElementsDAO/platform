@@ -1,27 +1,14 @@
 import React from 'react'
 import Head from 'next/head'
 import Web3 from 'web3'
-import {
-  Alert,
-  Box,
-  Button,
-  Container,
-  FormControl,
-  Input,
-  InputLabel,
-  Typography,
-  Typography,
-} from '@mui/material'
-import { useRouter } from 'next/router'
+import { Alert, Container, Typography } from '@mui/material'
 
 import { useWeb3React } from '@web3-react/core'
 
 import config from '@config'
 import Base from '@layouts/Base'
 import Button from '@components/Button'
-import { getSortedPostsData } from '../lib/posts'
-import utilStyles from '../styles/utils.module.css'
-import Layout, { siteTitle } from '../components/layout'
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('@contracts/erc20.json')
 

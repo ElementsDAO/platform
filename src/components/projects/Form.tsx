@@ -33,8 +33,8 @@ const Form = ({ contract }): any => {
       })
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       setFileUrl(url)
-    } catch (error) {
-      console.log('Error uploading file: ', error)
+    } catch (err) {
+      console.log('Error uploading file: ', err)
     }
   }
 
