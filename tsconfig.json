@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["pages/*"],
-      "@config": ["src/config.ts"],
+      "@config": ["src/config"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
       "@contracts/*": ["src/contracts/*"],

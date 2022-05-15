@@ -5,7 +5,7 @@ import Web3 from 'web3'
 import { Box, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
-import { ELEMENTS_ADDRESS } from '@config'
+import config from '@config'
 
 import List from '@components/projects/List'
 import Base from '@layouts/Base'
@@ -14,10 +14,10 @@ import Button from '@components/Button'
 const ELEMENTS_ABI = require('@contracts/elements.json')
 const APPLICATION_ABI = require('@contracts/applications.json')
 
-const Home = (): any => {
+const Home: React.FC = () => {
   const { query, push } = useRouter()
 
-  const { account, library, chainId } = useWeb3React()
+  const { account, library } = useWeb3React()
   const [elementContract, setElementContract] = React.useState(undefined)
   const [count, setCount] = React.useState(undefined)
 
@@ -25,26 +25,23 @@ const Home = (): any => {
     const web3 = new Web3(_library.provider)
     const tempGameDuelContract = new web3.eth.Contract(
       ELEMENTS_ABI,
-      ELEMENTS_ADDRESS
+      config.contracts.elements
     )
     setElementContract(tempGameDuelContract)
     let data
 
     const address = query.addr || undefined
-    const newApplication = query.new || undefined
 
     if (typeof address === 'string') {
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
       try {
-        data = await tempContract.methods.balance().call()
-        console.log('balance', data)
+        await tempContract.methods.balance().call()
       } catch (error) {
         console.log('error', error)
       }
     } else {
       try {
         data = await tempGameDuelContract.methods.applications_count().call()
-        console.log('applications_count', data)
         setCount(data)
       } catch (error) {
         console.log('error', error)
@@ -54,11 +51,10 @@ const Home = (): any => {
 
   React.useEffect(() => {
     if (!!account && !!library) {
-      console.log('query.addr', query.addr)
       init(account, library)
     }
     return null
-  }, [account, library, chainId])
+  }, [account, library])
 
   return (
     <Base>

@@ -4,7 +4,7 @@ import Web3 from 'web3'
 import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 
-import { USDT_ADDRESS } from '@config'
+import config from '@config'
 
 const ERC20_ABI = require('@contracts/erc20.json')
 
@@ -18,7 +18,7 @@ const Balance: React.FC<Props> = ({ address }) => {
 
   const init = async (_account, _library): Promise<any> => {
     const web3 = new Web3(_library.provider)
-    const contract = new web3.eth.Contract(ERC20_ABI, USDT_ADDRESS)
+    const contract = new web3.eth.Contract(ERC20_ABI, config.contracts.ustd)
 
     const x = await contract.methods.balanceOf(address).call()
     console.log('Balance::address USDT', x)

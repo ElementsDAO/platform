@@ -7,7 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
-import { ELEMENTARY_NFT } from '@config'
+import config from '@config'
 
 const ELEMENTARY_NFT_ABI = require('@contracts/elementaryNft.json')
 
@@ -26,7 +26,7 @@ const Nfts: React.FC = () => {
     const web3 = new Web3(_library.provider)
     const contract = new web3.eth.Contract(
       ELEMENTARY_NFT_ABI,
-      ELEMENTARY_NFT
+      config.contracts.elementary
     )
     const waterCount = await contract.methods.balanceOf(_account, 0).call()
     const fireCount = await contract.methods.balanceOf(_account, 1).call()

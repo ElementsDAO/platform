@@ -5,7 +5,7 @@ import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 
 import { IconButtonFancy } from '@components/IconButtonFancy'
 import Button from '@components/Button'
-import { config } from '@config'
+import config from '@config'
 
 const MobileMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)

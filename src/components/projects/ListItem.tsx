@@ -64,6 +64,7 @@ const ListItem: React.FC<Props> = ({ address }) => {
       <Box sx={{
         bgcolor: 'background.paper',
         borderRadius: '8px',
+        boxShadow: 1,
         mb: 2,
         transition: 'ease-in-out 200ms',
         cursor: 'pointer',

@@ -7,7 +7,7 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 
-import { USDT_ADDRESS } from '@config'
+import config from '@config'
 import CoverImage from './CoverImage'
 import Content from './Content'
 import Invest from './Invest'
@@ -41,7 +41,7 @@ const Detail = ({ address }): any => {
     try {
       const web3 = new Web3(_library.provider)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
-      const tempContract2 = new web3.eth.Contract(ERC20_ABI, USDT_ADDRESS)
+      const tempContract2 = new web3.eth.Contract(ERC20_ABI, config.contracts.ustd)
 
       setUsdt(tempContract2)
       setContract(tempContract)

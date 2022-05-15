@@ -5,7 +5,7 @@ import Web3 from 'web3'
 import { useWeb3React } from '@web3-react/core'
 import { Container, Typography } from '@mui/material'
 
-import { USDT_ADDRESS } from '@config'
+import config from '@config'
 import Base from '@layouts/Base'
 import Button from '@components/Button'
 
@@ -17,7 +17,7 @@ const Faucet: React.FC = () => {
 
   const init = async function (_account, _library): Promise<any> {
     const web3 = new Web3(_library.provider)
-    const tempContract = new web3.eth.Contract(ERC20_ABI, USDT_ADDRESS)
+    const tempContract = new web3.eth.Contract(ERC20_ABI, config.contracts.ustd)
     setContract(tempContract)
   }
 

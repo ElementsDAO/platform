@@ -1,12 +1,13 @@
 import React from 'react'
-import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
+
+import { useWeb3React } from '@web3-react/core'
 import { Container, Typography } from '@mui/material'
+
 import Form from '@components/projects/Form'
 import Base from '@layouts/Base'
+import config from '@config'
 
-
-import { ELEMENTS_ADDRESS } from '@config'
 const ELEMENTS_ABI = require('@contracts/elements.json')
 
 const New: React.FC = () => {
@@ -17,7 +18,7 @@ const New: React.FC = () => {
     const web3 = new Web3(_library.provider)
     const tempGameDuelContract = new web3.eth.Contract(
       ELEMENTS_ABI,
-      ELEMENTS_ADDRESS
+      config.contracts.elements
     )
     setElementContract(tempGameDuelContract)
   }

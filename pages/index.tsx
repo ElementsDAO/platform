@@ -5,7 +5,7 @@ import Web3 from 'web3'
 import { useWeb3React } from '@web3-react/core'
 import { Container, Typography } from '@mui/material'
 
-import { ELEMENTS_ADDRESS } from '@config'
+import config from '@config'
 import Base from '@layouts/Base'
 
 const ELEMENTS_ABI = require('@contracts/elements.json')
@@ -19,7 +19,7 @@ const Home: React.FC = () => {
     const web3 = new Web3(_library.provider)
     const tempGameDuelContract = new web3.eth.Contract(
       ELEMENTS_ABI,
-      ELEMENTS_ADDRESS
+      config.contracts.elements
     )
     let data
 

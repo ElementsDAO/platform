@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Box } from '@mui/material'
 
 import Button from '@components/Button'
-import { config } from '@config'
+import config from '@config'
 
 
 const Menu: React.FC = () => {

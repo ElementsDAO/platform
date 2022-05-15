@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '@config'
+import config from '@config'
 import Base from '@layouts/Base'
 
 const ELEMENTS_ABI = require('@contracts/elements.json')
@@ -39,12 +39,12 @@ const Stake = (): any => {
 
   const init = async function (_account, _library): Promise<any> {
     const web3 = new Web3(_library.provider)
-    const tempContract = new web3.eth.Contract(ELEMENTS_ABI, ELEMENTS_ADDRESS)
+    const tempContract = new web3.eth.Contract(ELEMENTS_ABI, config.contracts.elements)
     const tempContractNftStake = new web3.eth.Contract(
       NFT_STAKE_ABI,
-      NFT_STAKE_ADDRESS
+      config.contracts.nftStake
     )
-    const tempContractNft = new web3.eth.Contract(NFT_ABI, NFT_ADDRESS)
+    const tempContractNft = new web3.eth.Contract(NFT_ABI, config.contracts.nft)
 
     let data = await tempContract.methods.balanceOf(_account).call()
     setContract(tempContract)
@@ -68,10 +68,10 @@ const Stake = (): any => {
   const stake = async function (): Promise<any> {
     try {
       const amount = balance
-      const res = await contract.methods
-        .approve(ELEMENTS_ADDRESS, amount)
+      await contract.methods
+        .approve(config.contracts.elements, amount)
         .send({ from: account })
-      const data = await contract.methods
+      await contract.methods
         .deposit(amount)
         .send({ from: account })
       router.reload()
@@ -83,7 +83,7 @@ const Stake = (): any => {
   const stakeNft = async function (): Promise<any> {
     try {
       const res = await contractNft.methods
-        .approve(NFT_STAKE_ADDRESS, 1)
+        .approve(config.contracts.nftStake, 1)
         .send({ from: account })
       const data = await contractNftStake.methods
         .stakeNFT([1])
@@ -96,7 +96,7 @@ const Stake = (): any => {
 
   const unstakeNft = async function (): Promise<any> {
     try {
-      const data = await contractNftStake.methods
+      await contractNftStake.methods
         .unStakeNFT(1)
         .send({ from: account })
       router.reload()
