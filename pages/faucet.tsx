@@ -1,13 +1,13 @@
-import * as React from 'react'
+import React from 'react'
 import Head from 'next/head'
-import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import { Button, Typography } from '@mui/material'
-import Layout from '../src/components/layout'
+import { useWeb3React } from '@web3-react/core'
+import { Container, Typography } from '@mui/material'
 
 import { USDT_ADDRESS } from '../config'
+import Base from '../src/layouts/Base'
+import Button from '../src/components/Button'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('../src/contracts/erc20.json')
 
 const Faucet = (): any => {
@@ -39,21 +39,22 @@ const Faucet = (): any => {
   }, [account, library, chainId])
 
   return (
-    <Layout home>
+    <Base>
       <Head>
         <title>Faucet</title>
       </Head>
-      <section>
-        <Typography
-          sx={{ display: 'inline' }}
-          variant='body2'
-          color='text.primary'
-        >
+      <Container maxWidth='sm'>
+        <Typography variant='h2' fontWeight='bold'>
+          Faucet
+        </Typography>
+        <Typography color='text.secondary'>
           Here you can get some USD Test Tokens to use in the application.
         </Typography>
-        <Button onClick={() => mintTokens()}>Mint USD Test Tokens</Button>
-      </section>
-    </Layout>
+        <Button onClick={() => mintTokens()} sx={{ mt: 2 }}>
+          Mint USD Test Tokens
+        </Button>
+      </Container>
+    </Base>
   )
 }
 

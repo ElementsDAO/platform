@@ -1,11 +1,12 @@
 import React from 'react'
+import Web3 from 'web3'
+
 import { Box, List } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import Web3 from 'web3'
-import Link from 'next/link'
+
 import ProposalListItem from './ProposalListItem'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const GOV_ABI = require('../../src/contracts/applications.json')
+
+const GOV_ABI = require('../../contracts/applications.json')
 
 const ProposalList = ({ contract, count }): any => {
   const { account, library, chainId } = useWeb3React()

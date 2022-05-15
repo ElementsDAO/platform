@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Head from 'next/head'
-import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import Layout, { siteTitle } from '../src/components/layout'
+import { useWeb3React } from '@web3-react/core'
+import { Container, Typography } from '@mui/material'
 
 import { ELEMENTS_ADDRESS } from '../config'
-import { Typography } from '@mui/material'
+import Base from '../src/layouts/Base'
 
 const ELEMENTS_ABI = require('../src/contracts/elements.json')
 
@@ -42,20 +42,22 @@ const Home = (): any => {
   }, [account, library, chainId])
 
   return (
-    <Layout home>
+    <Base>
       <Head>
-        <title>{siteTitle}</title>
+        <title>Home</title>
       </Head>
-      <section >
-        <Typography variant='h1' >Elements</Typography>
-
-        <h2>Invest in green energy!</h2>
-        <p>Investment platform for renewable energy</p>
-        <p>[Alpha Version 0.1]</p>
-        <p>Projects count: {count}</p>
-        <p>Token Supply: {totalSupply}</p>
-      </section>
-    </Layout>
+      <Container maxWidth='sm'>
+        <Typography color='text.secondary'>
+          [Alpha Version]
+        </Typography>
+        <Typography variant='h2' fontWeight='bold'>
+          Elements
+        </Typography>
+        <Typography color='text.secondary'>
+          Platform to fund and invest in the future - renewable energy. We already have <strong>{count} projects</strong> and a current token supply of <strong>{totalSupply} ELE</strong>.
+        </Typography>
+      </Container>
+    </Base>
   )
 }
 

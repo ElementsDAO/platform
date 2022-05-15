@@ -1,12 +1,12 @@
 import React from 'react'
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material'
-import theme from './Theme'
+import theme from './theme'
 
 export interface ThemeProviderProps {
   children: React.ReactNode
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
+export const ThemeProvider: React.FC<ThemeProviderProps> = (props) => {
   const { children } = props
   return (
     <MuiThemeProvider theme={theme}>

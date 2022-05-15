@@ -1,47 +1,26 @@
-import { Web3Provider } from '@ethersproject/providers'
-import { Container, Grid } from '@mui/material'
-import { useWeb3React } from '@web3-react/core'
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import { SectionHeader } from '../src/components/SectionHeader'
-import { Section } from '../src/components/Section'
-import Layout from '../src/components/layout'
 
-const Profile: React.FC = (props: any) => {
-  const [bots, setBots] = React.useState<Array<any>>([])
-  const context = useWeb3React<Web3Provider>()
-  const { account, active } = context
-  const { addresses } = props
+import React from 'react'
+import { Box, Container, Typography } from '@mui/material'
+import Base from '../src/layouts/Base'
+import Nfts from '../src/components/profile/Nfts'
 
-  React.useEffect(() => {
-    if (!active || !addresses?.length) {
-      setBots([])
-      return
-    }
-
-    // Filter bot-ids for the active address
-    const iotabots = (addresses || [])
-      .filter((obj) => obj?.address === account)
-      .map((obj) => obj.id)
-    setBots(iotabots)
-  }, [account, active, addresses])
-
+const Profile: React.FC = () => {
   return (
-    <Layout home>
-      <Section>
-        <SectionHeader
-          title='Profile'
-          subtitle='Here at your profile we will show all your NFTs from different collections.'
-        />
-        <Container maxWidth='md'>
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={8}>
-              {addresses}
-            </Grid>
-          </Grid>
-        </Container>
-      </Section>
-    </Layout>
+    <Base>
+      <Container maxWidth='md'>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 2
+        }}>
+          <Typography fontWeight='bold' variant='h2'>
+            Profile
+          </Typography>
+        </Box>
+        <Nfts />
+      </Container>
+    </Base>
   )
 }
 

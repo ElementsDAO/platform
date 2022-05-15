@@ -1,7 +1,8 @@
 import React from 'react'
 import {
   Avatar,
-  ListItem,
+  Box,
+  ListItem as MuiListItem,
   ListItemAvatar,
   ListItemText,
   Typography,
@@ -13,7 +14,7 @@ import Link from 'next/link'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const APPLICATION_ABI = require('../../../src/contracts/applications.json')
 
-const ApplicationListItem = ({ address }): any => {
+const ListItem = ({ address }): any => {
   console.log('ApplicationListItem::address', address)
 
   const DemoApplication = {
@@ -55,26 +56,38 @@ const ApplicationListItem = ({ address }): any => {
     return null
   }, [account, library, chainId])
   return (
-    <Link href={{ pathname: '/applications', query: { addr: address } }}>
-      <ListItem alignItems='flex-start'>
-        <ListItemAvatar>
-          <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
-        </ListItemAvatar>
-        <ListItemText
-          primary={application.name}
-          secondary={
-            <Typography
-              sx={{ display: 'inline' }}
-              variant='body2'
-              color='text.primary'
-            >
-              {application.description}
-            </Typography>
-          }
-        />
-      </ListItem>
+    <Link href={{ pathname: `/projects/${address}` }}>
+      <Box sx={{
+        bgcolor: 'background.paper',
+        borderRadius: '8px',
+        mb: 2,
+        transition: 'ease-in-out 200ms',
+        cursor: 'pointer',
+        '&:hover': {
+          boxShadow: 1,
+          transform: 'translateY(-2px)'
+        }
+      }}>
+        <MuiListItem alignItems='flex-start'>
+          <ListItemAvatar>
+            <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />
+          </ListItemAvatar>
+          <ListItemText
+            primary={application.name}
+            secondary={
+              <Typography
+                sx={{ display: 'inline' }}
+                variant='body2'
+                color='text.primary'
+              >
+                {application.description}
+              </Typography>
+            }
+          />
+        </MuiListItem>
+      </Box>
     </Link>
   )
 }
 
-export default ApplicationListItem
+export default ListItem

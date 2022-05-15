@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box, List, Typography } from '@mui/material'
+import { Box, List as MuiList, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import ApplicationListItem from './ApplicationListItem'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import ListItem from './ListItem'
+
 const APPLICATION_ABI = require('../../../src/contracts/applications.json')
 
-const ApplicationList = ({ contract, count }): any => {
+const List = ({ contract, count }): any => {
   const { account, library, chainId } = useWeb3React()
   const [applications, setApplications] = React.useState([])
 
@@ -42,31 +42,16 @@ const ApplicationList = ({ contract, count }): any => {
     }
     return null
   }, [account, library, chainId])
-  const createApplication = async (): Promise<any> => {
-    console.log('öp')
-
-    const x = await contract.methods
-      .createApplication(1337)
-      .send({ from: account })
-    console.log('öp', x)
-  }
-  const changeAmount = (value: number): void => {
-    console.log('öp', value)
-  }
   return (
-    <>
-      <Typography>Application List</Typography>
-      <Box>
-        <p>Entries: {count}</p>
-
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          {applications.map((addr, index) => (
-            <ApplicationListItem address={addr} />
-          ))}
-        </List>
-      </Box>
-    </>
+    <Box>
+      <MuiList>
+        {applications.map((addr, index) => (
+          <ListItem address={addr} />
+        ))}
+      </MuiList>
+      <Typography mt={1}><strong>Entries:</strong> {count}</Typography>
+    </Box>
   )
 }
 
-export default ApplicationList
+export default List

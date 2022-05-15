@@ -1,6 +1,5 @@
-import { Web3Provider } from '@ethersproject/providers'
+import * as React from 'react'
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -8,94 +7,42 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import { useWeb3React } from '@web3-react/core'
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import { Section } from '../src/components/Section'
-import { SectionHeader } from '../src/components/SectionHeader'
-import Layout from '../src/components/layout'
+import Base from '../src/layouts/Base'
+import { experts } from '../src/data/experts'
+import Button from '../src/components/Button'
 
-const Experts: React.FC = (props: any) => {
-  const [bots, setBots] = React.useState<Array<any>>([])
-  const context = useWeb3React<Web3Provider>()
-  const router = useRouter()
-  const { account, active } = context
-
-  const experts = [
-    {
-      firstName: 'John',
-      lastName: 'Petterson',
-      description: 'Renewable Energy Policy and Electricity Market Design',
-      address: '',
-    },
-    {
-      firstName: 'Wisteria',
-      lastName: 'Ravenclaw',
-      description: 'Renewable Energy Project Development and Finance',
-      address: '',
-    },
-    {
-      firstName: 'Norman',
-      lastName: 'Gordon',
-      description: 'Sustainable Energy Policy Design and Laws',
-      address: '',
-    },
-    {
-      firstName: 'Ursula',
-      lastName: 'Gurnmeister',
-      description: 'Climate Finance, Emission Trading',
-      address: '',
-    },
-    {
-      firstName: 'Niles',
-      lastName: 'Peppertrout',
-      description: 'Renewable Energy Policies and Regulations',
-      address: '',
-    },
-    {
-      firstName: 'Douglas',
-      lastName: 'Lyphe',
-      description: 'Energy Economics, Energy Policy, Governance',
-      address: '',
-    },
-  ]
-
-  React.useEffect(() => {
-    if (!active || !account) {
-      setBots([])
-    }
-  }, [account, active])
-
+const Experts: React.FC = () => {
   return (
-    <Layout home>
-      <Section>
-        <SectionHeader
-          title='Experts'
-          subtitle='Experts in renewable energy.'
-        />
-        <Container>
-          <Grid container>
-            {experts.map(({ firstName, lastName, description, address }) => (
-              <Grid item xs={12} sm={6} md={3}>
-                <Card sx={{ maxWidth: 200, minHeight: 300 }}>
-                  <CardContent>
-                    <Typography gutterBottom variant='h5'>
-                      {`${lastName}, ${firstName}`}
-                    </Typography>
-                    <Typography variant='body2' color='text.secondary'>
-                      {description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size='small'>Share</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Section>
-    </Layout>
+    <Base>
+      <Container maxWidth='md'>
+        <Typography variant='h2' fontWeight='bold' gutterBottom>
+          Experts
+        </Typography>
+        <Grid container spacing={3}>
+          {experts.map(({ firstName, lastName, description }) => (
+            <Grid item xs={12} sm={6} md={3}>
+              <Card sx={{ height: '100%', p: 1 / 2 }}>
+                <CardContent>
+                  <Typography gutterBottom variant='h6' fontWeight='bold'>
+                    {`${lastName}, ${firstName}`}
+                  </Typography>
+                  <Typography variant='body2' color='text.secondary'>
+                    {description}
+                  </Typography>
+                  <Button
+                    color='secondary'
+                    size='small'
+                    sx={{ mt: 2 }}
+                  >
+                    Share
+                  </Button>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </Base>
   )
 }
 

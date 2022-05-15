@@ -12,15 +12,12 @@ import {
   Typography,
 } from '@mui/material'
 import { useRouter } from 'next/router'
-import Layout from '../src/components/layout'
 
 import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '../config'
+import Base from '../src/layouts/Base'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('../src/contracts/elements.json')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const NFT_STAKE_ABI = require('../src/contracts/nft_stake.json')
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const NFT_ABI = require('../src/contracts/nft.json')
 
 const DepositInfo = {
@@ -127,7 +124,7 @@ const Stake = (): any => {
   }, [account, library, chainId])
 
   return (
-    <Layout home>
+    <Base>
       <Head>
         <title>Stake</title>
       </Head>
@@ -189,7 +186,7 @@ const Stake = (): any => {
         <Button onClick={() => stakeNft()}>Stake NFT</Button>
         <Button onClick={() => unstakeNft()}>UnStake NFT</Button>
       </section>
-    </Layout>
+    </Base>
   )
 }
 

@@ -9,9 +9,6 @@ import {
 } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const GOV_ABI = require('../../src/contracts/liquidDemocracy.json')
-
 const ProposalListItem = ({ contract, proposal }): any => {
   console.log('ApplicationListItem::proposal', proposal)
 

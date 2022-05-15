@@ -23,7 +23,6 @@ export const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
       <Typography
         variant='subtitle1'
         textAlign='center'
-        color='rgba(255,255,255,0.66)'
       >
         {subtitle}
       </Typography>

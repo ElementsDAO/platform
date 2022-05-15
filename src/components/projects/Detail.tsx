@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Box,
   Button,
+  Container,
   FormControl,
   Input,
   InputLabel,
@@ -12,13 +13,12 @@ import Web3 from 'web3'
 import Link from 'next/link'
 
 import { USDT_ADDRESS } from '../../../config'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const APPLICATION_ABI = require('../../../src/contracts/applications.json')
+import Base from '../../layouts/Base'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const APPLICATION_ABI = require('../../../src/contracts/applications.json')
 const ERC20_ABI = require('../../../src/contracts/erc20.json')
 
-const ApplicationDetail = ({ address }): any => {
+const Detail = ({ address }): any => {
   const { account, library, chainId } = useWeb3React()
   const [balance, setBalance] = React.useState(undefined)
   const [contract, setContract] = React.useState(undefined)
@@ -27,11 +27,14 @@ const ApplicationDetail = ({ address }): any => {
   const [investAmount, setInvestAmount] = React.useState(10)
   const [investors, setInvestors] = React.useState(undefined)
   // const [address, setAddress] = React.useState(undefined)
+
   const DemoApplication = {
     name: 'Demo',
     description: 'Demo',
   }
+
   const [application, setApplication] = React.useState(DemoApplication)
+
   const init = async function (_account, _library): Promise<any> {
     let data
     try {
@@ -120,13 +123,9 @@ const ApplicationDetail = ({ address }): any => {
     return null
   }, [account, library, chainId])
   return (
-    <>
-      <Typography variant='h2' align='center' color='#fff' gutterBottom>
-        Application Detail
-      </Typography>
-      <Link href='/applications'>go to application list</Link>
-
-      <Typography variant='h3' color='text.primary'>
+    <Container maxWidth='md'>
+      <Link href='/applications'>Back to projects</Link>
+      <Typography fontWeight='bold' variant='h2'>
         {application.name}
       </Typography>
 
@@ -172,8 +171,8 @@ const ApplicationDetail = ({ address }): any => {
           <Typography>No Investors yes</Typography>
         )}
       </Box>
-    </>
+    </Container>
   )
 }
 
-export default ApplicationDetail
+export default Detail
