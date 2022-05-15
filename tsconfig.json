@@ -19,6 +19,7 @@
       "@pages/*": ["pages/*"],
       "@config": ["src/config"],
       "@components/*": ["src/components/*"],
+      "@context/*": ["src/context/*"],
       "@layouts/*": ["src/layouts/*"],
       "@contracts/*": ["src/contracts/*"],
       "@data/*": ["src/data/*"],

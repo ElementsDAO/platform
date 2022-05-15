@@ -8,6 +8,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 
 import createEmotionCache from '@theme/createEmotionCache'
 import ThemeProvider from '@theme/ThemeProvider'
+import ContractsProvider from '@context/ContractsProvider'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)
@@ -30,16 +31,18 @@ const App: React.FC<MyAppProps> = (props) => {
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
-          <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600&display=swap" rel="stylesheet" />
-        </Head>
-        <ThemeProvider>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </CacheProvider>
+      <ContractsProvider>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
+            <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600&display=swap" rel="stylesheet" />
+          </Head>
+          <ThemeProvider>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </CacheProvider>
+      </ContractsProvider>
     </Web3ReactProvider>
   )
 }
