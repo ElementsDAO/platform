@@ -1,18 +1,32 @@
 import React from 'react'
 import Head from 'next/head'
 import Web3 from 'web3'
+import {
+  Alert,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Input,
+  InputLabel,
+  Typography,
+  Typography,
+} from '@mui/material'
+import { useRouter } from 'next/router'
 
 import { useWeb3React } from '@web3-react/core'
-import { Container, Typography } from '@mui/material'
 
 import config from '@config'
 import Base from '@layouts/Base'
 import Button from '@components/Button'
+import { getSortedPostsData } from '../lib/posts'
+import utilStyles from '../styles/utils.module.css'
+import Layout, { siteTitle } from '../components/layout'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('@contracts/erc20.json')
 
 const Faucet: React.FC = () => {
-  const { account, library, chainId } = useWeb3React()
+  const { account, library, chainId, error: connectError } = useWeb3React()
   const [contract, setContract] = React.useState(undefined)
 
   const init = async function (_account, _library): Promise<any> {
@@ -44,11 +58,13 @@ const Faucet: React.FC = () => {
       <Head>
         <title>Faucet</title>
       </Head>
-      <Container maxWidth='sm'>
-        <Typography variant='h2' fontWeight='bold'>
-          Faucet
-        </Typography>
-        <Typography color='text.secondary'>
+      <Container>
+        {connectError && <Alert severity='error'>{connectError.message}</Alert>}
+        <Typography
+          sx={{ display: 'inline' }}
+          variant='body2'
+          color='text.primary'
+        >
           Here you can get some USD Test Tokens to use in the application.
         </Typography>
         <Button onClick={() => mintTokens()} sx={{ mt: 2 }}>

@@ -2,7 +2,7 @@ import React from 'react'
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useRouter } from 'next/router'
 
-import { Box, Container, TextField, Typography } from '@mui/material'
+import { Alert, Box, Container, TextField, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -17,7 +17,8 @@ const Form = ({ contract }): any => {
   const [loading, setLoading] = React.useState(false)
   const [loadingMessage, setLoadingMessage] = React.useState('')
   const [fileUrl, setFileUrl] = React.useState<null | string>(null)
-
+  const [error, setError] = React.useState(false)
+  const [errorMessage, setErrorMessage] = React.useState('')
   const [formInput, updateFormInput] = React.useState({
     price: '',
     name: '',
@@ -37,11 +38,33 @@ const Form = ({ contract }): any => {
     }
   }
 
+  // basic validation
+  const validForm = (): boolean => {
+    let valid = true
+    if (formInput.price === '') {
+      valid = false
+    }
+    if (formInput.name === '') {
+      valid = false
+    }
+    if (formInput.description === '') {
+      valid = false
+    }
+    return valid
+  }
+
   const createApplication = async (): Promise<any> => {
-    setLoadingMessage('create Application...')
+    setLoadingMessage('Creating Project...')
     setLoading(true)
     const { name, description, price } = formInput
-
+    /**
+     * Basic validation
+     */
+    if (!validForm()) {
+      console.error('the form is not valid')
+      setLoading(false)
+      throw new Error('Please check your input')
+    }
     const data = JSON.stringify({
       name,
       description,
@@ -58,16 +81,18 @@ const Form = ({ contract }): any => {
       router.push('/')
 
       setLoading(false)
-    } catch (error) {
+    } catch (err) {
+      setLoading(false)
+      setError(true)
+      setErrorMessage(err.message)
       console.log('Error uploading file: ', error)
     }
   }
 
   return (
     <Container maxWidth='sm'>
-      <Box
-        component='form'
-      >
+      {error && <Alert severity='error'>{errorMessage}</Alert>}
+      <Box component='form'>
         <TextField
           disabled={loading}
           placeholder='Name'
@@ -78,7 +103,7 @@ const Form = ({ contract }): any => {
           onChange={(e: any) =>
             updateFormInput({
               ...formInput,
-              name: e.target.value
+              name: e.target.value,
             })
           }
         />
@@ -136,11 +161,8 @@ const Form = ({ contract }): any => {
           {loading && (
             <>
               <CircularProgress color='primary' size='5em' />
-              <Typography
-                variant='body1'
-                align='center'
-              >
-                Loading...
+              <Typography variant='body1' align='center'>
+                {loading ? loadingMessage : ''}
               </Typography>
             </>
           )}
