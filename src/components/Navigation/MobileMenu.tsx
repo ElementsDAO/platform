@@ -3,9 +3,9 @@ import React from 'react'
 import { Box, Menu } from '@mui/material'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 
-import { IconButtonFancy } from '../IconButtonFancy'
-import Button from '../Button'
-import { MOBILE_MENU } from './config'
+import { IconButtonFancy } from '@components/IconButtonFancy'
+import Button from '@components/Button'
+import { config } from '@config'
 
 const MobileMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -55,7 +55,7 @@ const MobileMenu: React.FC = () => {
           },
         }}
       >
-        {MOBILE_MENU.map((item) => (
+        {config.mobileMenu.map((item) => (
           <Button sx={{ my: 1 / 2 }} key={item.label} color='secondary'>
             {item.label}
           </Button>
