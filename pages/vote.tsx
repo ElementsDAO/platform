@@ -4,7 +4,15 @@ import Web3 from 'web3'
 import { useRouter } from 'next/router'
 
 import { useWeb3React } from '@web3-react/core'
-import { Box, Button, Container, Grid, Input, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Input,
+  TextField,
+  Typography,
+} from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import NewProposal from '@components/Proposals/NewProposal'
@@ -13,6 +21,7 @@ import AddVoter from '@components/Proposals/AddVoter'
 import Base from '@layouts/Base'
 import { bytecode } from '@contracts/voteBytecode'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const GOV_ABI = require('@contracts/liquidDemocracy.json')
 
 const Stake: React.FC = () => {
@@ -197,7 +206,7 @@ const Stake: React.FC = () => {
               direction='row'
               alignItems='center'
               justifyContent='center'
-            // style={{ minHeight: '100vh' }}
+              // style={{ minHeight: '100vh' }}
             >
               <Grid item xs={8}>
                 <Typography

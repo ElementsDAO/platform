@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { AppBar, Toolbar, Box } from '@mui/material'
+import { AppBar, Box, Toolbar } from '@mui/material'
 
 import MobileMenu from './MobileMenu'
 import Logo from '../Logo'
@@ -13,17 +13,13 @@ export interface MenuItemProps {
 }
 
 export interface NavigationProps {
-  identity?: boolean
-  logo?: JSX.Element
-  onClickProfile?: () => void
+  identity: boolean
+  logo: JSX.Element
+  onClickProfile: () => void
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-  const {
-    identity = true,
-    logo,
-    onClickProfile,
-  } = props
+  const { identity = true, logo, onClickProfile } = props
   return (
     <AppBar
       sx={{
@@ -41,8 +37,8 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
         backdropFilter: 'blur(8px)',
         boxShadow: 1,
         '& .MuiToolbar-root': {
-          px: 2
-        }
+          px: 2,
+        },
       }}
     >
       <Toolbar

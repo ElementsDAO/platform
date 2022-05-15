@@ -17,8 +17,11 @@ import {
 import config from '@config'
 import Base from '@layouts/Base'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const NFT_STAKE_ABI = require('@contracts/nft_stake.json')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const NFT_ABI = require('@contracts/nft.json')
 
 const DepositInfo = {
@@ -39,7 +42,10 @@ const Stake = (): any => {
 
   const init = async function (_account, _library): Promise<any> {
     const web3 = new Web3(_library.provider)
-    const tempContract = new web3.eth.Contract(ELEMENTS_ABI, config.contracts.elements)
+    const tempContract = new web3.eth.Contract(
+      ELEMENTS_ABI,
+      config.contracts.elements
+    )
     const tempContractNftStake = new web3.eth.Contract(
       NFT_STAKE_ABI,
       config.contracts.nftStake
@@ -71,9 +77,7 @@ const Stake = (): any => {
       await contract.methods
         .approve(config.contracts.elements, amount)
         .send({ from: account })
-      await contract.methods
-        .deposit(amount)
-        .send({ from: account })
+      await contract.methods.deposit(amount).send({ from: account })
       router.reload()
     } catch (error) {
       console.log('error', error)
@@ -96,9 +100,7 @@ const Stake = (): any => {
 
   const unstakeNft = async function (): Promise<any> {
     try {
-      await contractNftStake.methods
-        .unStakeNFT(1)
-        .send({ from: account })
+      await contractNftStake.methods.unStakeNFT(1).send({ from: account })
       router.reload()
     } catch (error) {
       console.log('error', error)

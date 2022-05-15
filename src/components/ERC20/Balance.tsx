@@ -6,6 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 
 import config from '@config'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('@contracts/erc20.json')
 
 interface Props {
@@ -31,11 +32,7 @@ const Balance: React.FC<Props> = ({ address }) => {
     }
     return null
   }, [account, library, chainId, address])
-  return (
-    <Typography>
-      Balance: {balance} USDT
-    </Typography>
-  )
+  return <Typography>Balance: {balance} USDT</Typography>
 }
 
 export default Balance

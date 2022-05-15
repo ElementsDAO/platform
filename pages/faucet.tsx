@@ -8,7 +8,7 @@ import { Container, Typography } from '@mui/material'
 import config from '@config'
 import Base from '@layouts/Base'
 import Button from '@components/Button'
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('@contracts/erc20.json')
 
 const Faucet: React.FC = () => {

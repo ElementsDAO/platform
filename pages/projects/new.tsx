@@ -8,6 +8,7 @@ import Form from '@components/projects/Form'
 import Base from '@layouts/Base'
 import config from '@config'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
 
 const New: React.FC = () => {

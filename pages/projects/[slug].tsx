@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Detail from '@components/projects/Detail'
 import Base from '@layouts/Base'
 
-const Project = () => {
+const Project = (): any => {
   const router = useRouter()
   const { slug } = router.query
 

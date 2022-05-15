@@ -6,6 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 
 import ProposalListItem from './ProposalListItem'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const GOV_ABI = require('@contracts/applications.json')
 
 const ProposalList = ({ contract, count }): any => {

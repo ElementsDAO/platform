@@ -5,13 +5,14 @@ import Link from 'next/link'
 import {
   Avatar,
   Box,
-  ListItem as MuiListItem,
   ListItemAvatar,
   ListItemText,
+  ListItem as MuiListItem,
   Typography,
 } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const APPLICATION_ABI = require('@contracts/applications.json')
 
 interface Props {
@@ -61,18 +62,20 @@ const ListItem: React.FC<Props> = ({ address }) => {
 
   return (
     <Link href={{ pathname: `/projects/${address}` }}>
-      <Box sx={{
-        bgcolor: 'background.paper',
-        borderRadius: '8px',
-        boxShadow: 1,
-        mb: 2,
-        transition: 'ease-in-out 200ms',
-        cursor: 'pointer',
-        '&:hover': {
+      <Box
+        sx={{
+          bgcolor: 'background.paper',
+          borderRadius: '8px',
           boxShadow: 1,
-          transform: 'translateY(-2px)'
-        }
-      }}>
+          mb: 2,
+          transition: 'ease-in-out 200ms',
+          cursor: 'pointer',
+          '&:hover': {
+            boxShadow: 1,
+            transform: 'translateY(-2px)',
+          },
+        }}
+      >
         <MuiListItem alignItems='flex-start'>
           <ListItemAvatar>
             <Avatar alt='Remy Sharp' src='/static/images/avatar/1.jpg' />

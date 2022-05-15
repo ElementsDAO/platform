@@ -5,6 +5,7 @@ import { Container, Typography } from '@mui/material'
 interface SectionHeaderProps {
   title: string
   subtitle: string
+  children: React.ReactNode
 }
 
 export const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
@@ -21,10 +22,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = (props) => {
       >
         {title}
       </Typography>
-      <Typography
-        variant='subtitle1'
-        textAlign='center'
-      >
+      <Typography variant='subtitle1' textAlign='center'>
         {subtitle}
       </Typography>
       {children}

@@ -22,6 +22,7 @@ const NewProposal = ({ contract }): any => {
 
     try {
       await contract.methods.newProposal(name).send({ from: account })
+      // eslint-disable-next-line no-underscore-dangle
       router.push('/vote', { query: { addr: contract._address } })
       setLoading(false)
     } catch (error) {

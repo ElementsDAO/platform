@@ -16,33 +16,36 @@ const getLibrary = (provider: any): Web3Provider => {
   return library
 }
 
-const clientSideEmotionCache = createEmotionCache();
+const clientSideEmotionCache = createEmotionCache()
 
 interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache
+  emotionCache: EmotionCache
 }
 
 const App: React.FC<MyAppProps> = (props) => {
-  const {
-    pageProps,
-    emotionCache = clientSideEmotionCache,
-    Component
-  } = props
+  const { pageProps, emotionCache = clientSideEmotionCache, Component } = props
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
-      <ContractsProvider>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='' />
-            <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600&display=swap" rel="stylesheet" />
-          </Head>
-          <ThemeProvider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
+          <link
+            rel='preconnect'
+            href='https://fonts.gstatic.com'
+            crossOrigin=''
+          />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Exo+2:wght@300;600&display=swap'
+            rel='stylesheet'
+          />
+        </Head>
+        <ThemeProvider>
+          <ContractsProvider>
             <Component {...pageProps} />
-          </ThemeProvider>
-        </CacheProvider>
-      </ContractsProvider>
+          </ContractsProvider>
+        </ThemeProvider>
+      </CacheProvider>
     </Web3ReactProvider>
   )
 }

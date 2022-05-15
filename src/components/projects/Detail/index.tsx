@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  Box,
-  Container,
-  Grid,
-} from '@mui/material'
+import { Box, Container, Grid } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 
@@ -13,13 +9,16 @@ import Content from './Content'
 import Invest from './Invest'
 import Investors from './Investors'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const APPLICATION_ABI = require('@contracts/applications.json')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ERC20_ABI = require('@contracts/erc20.json')
 
 const DemoApplication = {
   name: 'First awesome demo project',
   description: 'Lorem ipsum dolor sit amet',
-  cover: 'https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+  cover:
+    'https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
 }
 
 const Detail = ({ address }): any => {
@@ -41,7 +40,10 @@ const Detail = ({ address }): any => {
     try {
       const web3 = new Web3(_library.provider)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
-      const tempContract2 = new web3.eth.Contract(ERC20_ABI, config.contracts.ustd)
+      const tempContract2 = new web3.eth.Contract(
+        ERC20_ABI,
+        config.contracts.ustd
+      )
 
       setUsdt(tempContract2)
       setContract(tempContract)
@@ -95,9 +97,7 @@ const Detail = ({ address }): any => {
       .approve(address, correctTnvestAmount)
       .send({ from: account })
 
-    await contract.methods
-      .invest(correctTnvestAmount)
-      .send({ from: account })
+    await contract.methods.invest(correctTnvestAmount).send({ from: account })
   }
 
   React.useEffect(() => {

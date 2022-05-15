@@ -2,27 +2,27 @@ import React from 'react'
 
 import { Box, List as MuiList, Typography } from '@mui/material'
 
-import ListItem from './ListItem'
 import { ContractsContext } from '@context/ContractsProvider'
+import ListItem from './ListItem'
 
 const List = ({ count }): any => {
   const { element } = React.useContext(ContractsContext)
   const [applications, setApplications] = React.useState([])
 
-  const queryProjectAddresses =
-    async function (): Promise<any> {
-      let data
-      const dataArray = []
-      try {
-        for (let i = 0; i < count; i += 1) {
-          data = await element.methods.applications(i).call()
-          dataArray.push(data)
-        }
-        setApplications(dataArray)
-      } catch (error) {
-        console.log('error', error)
+  const queryProjectAddresses = async function (): Promise<any> {
+    let data
+    const dataArray = []
+    try {
+      for (let i = 0; i < count; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        data = await element.methods.applications(i).call()
+        dataArray.push(data)
       }
+      setApplications(dataArray)
+    } catch (error) {
+      console.log('error', error)
     }
+  }
 
   React.useEffect(() => {
     queryProjectAddresses()

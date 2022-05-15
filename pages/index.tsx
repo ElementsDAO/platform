@@ -7,7 +7,7 @@ import { Container, Typography } from '@mui/material'
 
 import config from '@config'
 import Base from '@layouts/Base'
-
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
 
 const Home: React.FC = () => {
@@ -46,19 +46,18 @@ const Home: React.FC = () => {
         <title>Home</title>
       </Head>
       <Container maxWidth='sm'>
-        <Typography color='text.secondary'>
-          [Alpha Version]
-        </Typography>
+        <Typography color='text.secondary'>[Alpha Version]</Typography>
         <Typography variant='h2' fontWeight='bold'>
           Elements
         </Typography>
         <Typography color='text.secondary'>
-          Platform to fund and invest in the future - renewable energy. We already have <strong>{count} projects</strong> and a current token supply of <strong>{totalSupply} ELE</strong>.
+          Platform to fund and invest in the future - renewable energy. We
+          already have <strong>{count} projects</strong> and a current token
+          supply of <strong>{totalSupply} ELE</strong>.
         </Typography>
       </Container>
     </Base>
   )
 }
-
 
 export default Home

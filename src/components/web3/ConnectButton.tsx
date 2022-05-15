@@ -3,9 +3,9 @@ import { useWeb3React } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 
+import Button from '@components/Button'
 import { useEagerConnect, useInactiveListener } from './hooks'
 import { injected } from './hooks/connectors'
-import Button from '@components/Button'
 
 enum ConnectorNames {
   Injected = 'Connect',

@@ -9,6 +9,7 @@ import { Box } from '@mui/system'
 
 import config from '@config'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTARY_NFT_ABI = require('@contracts/elementaryNft.json')
 
 const NFTS = [
@@ -19,8 +20,8 @@ const NFTS = [
 ]
 
 const Nfts: React.FC = () => {
-  const web3 = useWeb3React<Web3Provider>()
-  const { account, library } = web3
+  const context = useWeb3React<Web3Provider>()
+  const { account, library } = context
 
   const init = async function (_account, _library): Promise<any> {
     const web3 = new Web3(_library.provider)
@@ -49,15 +50,17 @@ const Nfts: React.FC = () => {
       <Grid container spacing={3}>
         {NFTS.map((nft) => (
           <Grid item xs={3}>
-            <Box sx={{
-              width: '100%',
-              height: 200,
-              backgroundImage: `url(${nft})`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              borderRadius: '8px',
-              boxShadow: 1
-            }} />
+            <Box
+              sx={{
+                width: '100%',
+                height: 200,
+                backgroundImage: `url(${nft})`,
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+                borderRadius: '8px',
+                boxShadow: 1,
+              }}
+            />
           </Grid>
         ))}
       </Grid>
