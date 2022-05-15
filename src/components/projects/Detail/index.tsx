@@ -34,7 +34,6 @@ const Detail = ({ address }): any => {
 
   const [investors, setInvestors] = React.useState(undefined)
 
-
   const [application, setApplication] = React.useState(DemoApplication)
 
   const init = async function (_account, _library): Promise<any> {
