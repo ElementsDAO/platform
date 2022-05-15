@@ -1,12 +1,11 @@
 import * as React from 'react'
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import { Box } from '@mui/material'
+
+import { AppBar, Toolbar, Box } from '@mui/material'
+
 import MobileMenu from './MobileMenu'
 import Logo from '../Logo'
 import Menu from './Menu'
 import IdentityMenu from './IdentityMenu'
-import { MENU, MOBILE_MENU } from './config'
 
 export interface MenuItemProps {
   label: string

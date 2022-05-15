@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Box, BoxProps } from '@mui/material'
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
+
 import { ConnectButton } from '../web3/ConnectButton'
 import ProfileImage from './ProfileImage'
 

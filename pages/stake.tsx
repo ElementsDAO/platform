@@ -1,8 +1,10 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useWeb3React } from '@web3-react/core'
+import { useRouter } from 'next/router'
 import Web3 from 'web3'
+
+import { useWeb3React } from '@web3-react/core'
 import {
   Button,
   Card,
@@ -11,14 +13,13 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import { useRouter } from 'next/router'
 
-import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '../config'
-import Base from '../src/layouts/Base'
+import { ELEMENTS_ADDRESS, NFT_ADDRESS, NFT_STAKE_ADDRESS } from '@config'
+import Base from '@layouts/Base'
 
-const ELEMENTS_ABI = require('../src/contracts/elements.json')
-const NFT_STAKE_ABI = require('../src/contracts/nft_stake.json')
-const NFT_ABI = require('../src/contracts/nft.json')
+const ELEMENTS_ABI = require('@contracts/elements.json')
+const NFT_STAKE_ABI = require('@contracts/nft_stake.json')
+const NFT_ABI = require('@contracts/nft.json')
 
 const DepositInfo = {
   stake: 0,
@@ -49,21 +50,15 @@ const Stake = (): any => {
     setContract(tempContract)
     setContractNftStake(tempContractNftStake)
     setContractNft(tempContractNft)
-    console.log('balance', data)
     setBalance(data)
     data = await tempContractNft.methods.walletOfOwner(_account).call()
-    console.log('nfts', data)
     setNfts(data)
     data = await tempContractNftStake.methods.getStakeContractBalance().call()
-    console.log('poolBalance', data)
     setPoolBalance(data)
     data = await tempContractNftStake.methods.receipt(1).call()
-    console.log('receipt', data)
     data = await tempContractNftStake.methods.getCurrentStakeEarned(1).call()
-    console.log('getCurrentStakeEarned', data)
 
     data = await tempContract.methods.getDepositInfo(_account).call()
-    console.log('getDepositInfo', data)
     setDepositInfo({
       stake: data[0],
       rewards: data[1],
@@ -76,11 +71,9 @@ const Stake = (): any => {
       const res = await contract.methods
         .approve(ELEMENTS_ADDRESS, amount)
         .send({ from: account })
-      console.log('approval', res)
       const data = await contract.methods
         .deposit(amount)
         .send({ from: account })
-      console.log('data', data)
       router.reload()
     } catch (error) {
       console.log('error', error)
@@ -89,15 +82,12 @@ const Stake = (): any => {
 
   const stakeNft = async function (): Promise<any> {
     try {
-      const amount = balance
       const res = await contractNft.methods
         .approve(NFT_STAKE_ADDRESS, 1)
         .send({ from: account })
-      console.log('approval', res)
       const data = await contractNftStake.methods
         .stakeNFT([1])
         .send({ from: account })
-      console.log('data', data)
       router.reload()
     } catch (error) {
       console.log('error', error)
@@ -109,7 +99,6 @@ const Stake = (): any => {
       const data = await contractNftStake.methods
         .unStakeNFT(1)
         .send({ from: account })
-      console.log('data', data)
       router.reload()
     } catch (error) {
       console.log('error', error)

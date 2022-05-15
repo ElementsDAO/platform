@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Typography } from '@mui/material'
 import Link from 'next/link'
+
+import { Box } from '@mui/material'
 
 const Logo: React.FC = () => (
   <Link href='/'>

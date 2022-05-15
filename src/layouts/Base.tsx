@@ -1,8 +1,10 @@
 import React from 'react'
-import { Box, BoxProps } from '@mui/material'
-import { Navigation } from '../components/Navigation'
-import Logo from '../components/Logo'
 import { useRouter } from 'next/router'
+
+import { Box, BoxProps } from '@mui/material'
+
+import { Navigation } from '@components/Navigation'
+import Logo from '@components/Logo'
 
 const Base: React.FC<BoxProps> = (props) => {
   const { children, sx } = props

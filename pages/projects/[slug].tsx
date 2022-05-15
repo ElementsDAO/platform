@@ -1,7 +1,8 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Detail from '../../src/components/projects/Detail'
-import Base from '../../src/layouts/Base'
+
+import Detail from '@components/projects/Detail'
+import Base from '@layouts/Base'
 
 const Project = () => {
   const router = useRouter()

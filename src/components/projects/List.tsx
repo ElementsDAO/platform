@@ -1,10 +1,12 @@
 import React from 'react'
+import Web3 from 'web3'
+
 import { Box, List as MuiList, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import Web3 from 'web3'
+
 import ListItem from './ListItem'
 
-const APPLICATION_ABI = require('../../../src/contracts/applications.json')
+const APPLICATION_ABI = require('@contracts/applications.json')
 
 const List = ({ contract, count }): any => {
   const { account, library, chainId } = useWeb3React()
@@ -17,17 +19,14 @@ const List = ({ contract, count }): any => {
       for (let i = 0; i < count; i += 1) {
         // eslint-disable-next-line no-await-in-loop
         data = await contract.methods.applications(i).call()
-        console.log('applications', data)
         dataArray.push(data)
       }
-      console.log('applications', data)
       setApplications(dataArray)
       const web3 = new Web3(_library.provider)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, data)
 
       try {
         data = await tempContract.methods.balance().call()
-        console.log('balance', data)
       } catch (error) {
         console.log('error balance', error)
       }
@@ -42,6 +41,7 @@ const List = ({ contract, count }): any => {
     }
     return null
   }, [account, library, chainId])
+
   return (
     <Box>
       <MuiList>

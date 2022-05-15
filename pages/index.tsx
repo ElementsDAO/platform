@@ -1,15 +1,16 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Web3 from 'web3'
+
 import { useWeb3React } from '@web3-react/core'
 import { Container, Typography } from '@mui/material'
 
-import { ELEMENTS_ADDRESS } from '../config'
-import Base from '../src/layouts/Base'
+import { ELEMENTS_ADDRESS } from '@config'
+import Base from '@layouts/Base'
 
-const ELEMENTS_ABI = require('../src/contracts/elements.json')
+const ELEMENTS_ABI = require('@contracts/elements.json')
 
-const Home = (): any => {
+const Home: React.FC = () => {
   const { account, library, chainId } = useWeb3React()
   const [totalSupply, setTotalSupply] = React.useState(undefined)
   const [count, setCount] = React.useState(undefined)
@@ -24,10 +25,8 @@ const Home = (): any => {
 
     try {
       data = await tempGameDuelContract.methods.applications_count().call()
-      console.log('data', data)
       setCount(data)
       data = await tempGameDuelContract.methods.totalSupply().call()
-      console.log('totalSupply', data)
       setTotalSupply(data)
     } catch (error) {
       console.log('error', error)

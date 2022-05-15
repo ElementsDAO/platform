@@ -1,19 +1,13 @@
 import React from 'react'
-import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
-import { useWeb3React } from '@web3-react/core'
-import CircularProgress from '@mui/material/CircularProgress'
 import { useRouter } from 'next/router'
 
-const AddVoter = ({ contract }): any => {
-  const { account, library, chainId } = useWeb3React()
-  const router = useRouter()
+import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import { useWeb3React } from '@web3-react/core'
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      // init(account, library)
-    }
-    return null
-  }, [account, library, contract])
+const AddVoter = ({ contract }): any => {
+  const { account } = useWeb3React()
+  const router = useRouter()
 
   const [loading, setLoading] = React.useState(false)
   const [loadingMessage, setLoadingMessage] = React.useState('')
@@ -22,36 +16,25 @@ const AddVoter = ({ contract }): any => {
   })
 
   const addVoter = async (): Promise<any> => {
-    console.log('öp', contract)
-
     setLoadingMessage('create addVoter...')
     setLoading(true)
     const { name } = formInput
-    // if (!name || !description || !price || !fileUrl) return
-    /* first, upload to IPFS */
-    const data = JSON.stringify({
-      name,
-    })
-    try {
-      const x = await contract.methods.addVoter(name).send({ from: account })
-      console.log('createProposal', x)
-      console.log('address', contract.address)
-      // eslint-disable-next-line no-underscore-dangle
-      router.push('/vote', { query: { addr: contract._address } })
 
+    try {
+      await contract.methods.addVoter(name).send({ from: account })
+      router.push('/vote', { query: { addr: contract._address } })
       setLoading(false)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }
   }
+
   return (
     <Box>
-      {/* Hero unit */}
       <Container sx={{ py: 8 }} maxWidth='md'>
         <Typography variant='h2' align='center' color='#fff' gutterBottom>
           Add Voter
         </Typography>
-        {/* End hero unit */}
       </Container>
       <Container sx={{ py: 8 }} maxWidth='md'>
         <Grid
@@ -60,7 +43,6 @@ const AddVoter = ({ contract }): any => {
           direction='row'
           alignItems='center'
           justifyContent='center'
-          // style={{ minHeight: '100vh' }}
         >
           <Grid item xs={8}>
             <Typography
@@ -85,8 +67,6 @@ const AddVoter = ({ contract }): any => {
                   updateFormInput({ ...formInput, name: e.target.value })
                 }
               />
-              <br />
-              <br />
               <Box
                 display='flex'
                 flexDirection='column'

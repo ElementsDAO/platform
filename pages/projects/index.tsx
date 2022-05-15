@@ -5,14 +5,14 @@ import Web3 from 'web3'
 import { Box, Container, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 
-import { ELEMENTS_ADDRESS } from '../../config'
+import { ELEMENTS_ADDRESS } from '@config'
 
-import List from '../../src/components/projects/List'
-import Base from '../../src/layouts/Base'
-import Button from '../../src/components/Button'
+import List from '@components/projects/List'
+import Base from '@layouts/Base'
+import Button from '@components/Button'
 
-const ELEMENTS_ABI = require('../../src/contracts/elements.json')
-const APPLICATION_ABI = require('../../src/contracts/applications.json')
+const ELEMENTS_ABI = require('@contracts/elements.json')
+const APPLICATION_ABI = require('@contracts/applications.json')
 
 const Home = (): any => {
   const { query, push } = useRouter()

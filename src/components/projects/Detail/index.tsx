@@ -7,14 +7,14 @@ import {
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 
-import { USDT_ADDRESS } from '../../../../config'
+import { USDT_ADDRESS } from '@config'
 import CoverImage from './CoverImage'
 import Content from './Content'
 import Invest from './Invest'
 import Investors from './Investors'
 
-const APPLICATION_ABI = require('../../../../src/contracts/applications.json')
-const ERC20_ABI = require('../../../../src/contracts/erc20.json')
+const APPLICATION_ABI = require('@contracts/applications.json')
+const ERC20_ABI = require('@contracts/erc20.json')
 
 const DemoApplication = {
   name: 'First awesome demo project',

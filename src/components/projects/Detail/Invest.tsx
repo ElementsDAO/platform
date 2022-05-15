@@ -1,6 +1,7 @@
 import { Box, TextField, Typography } from '@mui/material'
 import React from 'react'
-import Button from '../../Button'
+
+import Button from '@components/Button'
 
 interface Props {
   amount: number

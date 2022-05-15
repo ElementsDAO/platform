@@ -6,7 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 
 import ProposalListItem from './ProposalListItem'
 
-const GOV_ABI = require('../../contracts/applications.json')
+const GOV_ABI = require('@contracts/applications.json')
 
 const ProposalList = ({ contract, count }): any => {
   const { account, library, chainId } = useWeb3React()

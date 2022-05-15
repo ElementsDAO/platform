@@ -1,11 +1,13 @@
 import * as React from 'react'
+import Head from 'next/head'
+import { AppProps } from 'next/dist/shared/lib/router/router'
+
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
-import { AppProps } from 'next/dist/shared/lib/router/router'
-import Head from 'next/head'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-import createEmotionCache from '../src/theme/createEmotionCache'
-import ThemeProvider from '../src/theme/ThemeProvider'
+
+import createEmotionCache from '@theme/createEmotionCache'
+import ThemeProvider from '@theme/ThemeProvider'
 
 const getLibrary = (provider: any): Web3Provider => {
   const library = new Web3Provider(provider)

@@ -1,19 +1,13 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+
 import { Box, Button, Container, Grid, Input, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useRouter } from 'next/router'
 
 const NewProposal = ({ contract }): any => {
-  const { account, library, chainId } = useWeb3React()
+  const { account } = useWeb3React()
   const router = useRouter()
-
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      // init(account, library)
-    }
-    return null
-  }, [account, library, contract])
 
   const [loading, setLoading] = React.useState(false)
   const [loadingMessage, setLoadingMessage] = React.useState('')
@@ -22,36 +16,25 @@ const NewProposal = ({ contract }): any => {
   })
 
   const createProposal = async (): Promise<any> => {
-    console.log('öp', contract)
-
     setLoadingMessage('create Proposal...')
     setLoading(true)
     const { name } = formInput
-    // if (!name || !description || !price || !fileUrl) return
-    /* first, upload to IPFS */
-    const data = JSON.stringify({
-      name,
-    })
-    try {
-      const x = await contract.methods.newProposal(name).send({ from: account })
-      console.log('createProposal', x)
-      console.log('address', contract.address)
-      // eslint-disable-next-line no-underscore-dangle
-      router.push('/vote', { query: { addr: contract._address } })
 
+    try {
+      await contract.methods.newProposal(name).send({ from: account })
+      router.push('/vote', { query: { addr: contract._address } })
       setLoading(false)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }
   }
+
   return (
     <Box>
-      {/* Hero unit */}
       <Container sx={{ py: 8 }} maxWidth='md'>
         <Typography variant='h2' align='center' color='#fff' gutterBottom>
           New Proposal
         </Typography>
-        {/* End hero unit */}
       </Container>
       <Container sx={{ py: 8 }} maxWidth='md'>
         <Grid
@@ -60,7 +43,6 @@ const NewProposal = ({ contract }): any => {
           direction='row'
           alignItems='center'
           justifyContent='center'
-          // style={{ minHeight: '100vh' }}
         >
           <Grid item xs={8}>
             <Typography

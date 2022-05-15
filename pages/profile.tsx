@@ -1,8 +1,9 @@
 
 import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
-import Base from '../src/layouts/Base'
-import Nfts from '../src/components/profile/Nfts'
+
+import Base from '@layouts/Base'
+import Nfts from '@components/profile/Nfts'
 
 const Profile: React.FC = () => {
   return (

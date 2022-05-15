@@ -2,12 +2,12 @@ import React from 'react'
 import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 import { Container, Typography } from '@mui/material'
-import Form from '../../src/components/projects/Form'
-import Base from '../../src/layouts/Base'
+import Form from '@components/projects/Form'
+import Base from '@layouts/Base'
 
 
-import { ELEMENTS_ADDRESS } from '../../config'
-const ELEMENTS_ABI = require('../../src/contracts/elements.json')
+import { ELEMENTS_ADDRESS } from '@config'
+const ELEMENTS_ABI = require('@contracts/elements.json')
 
 const New: React.FC = () => {
   const { account, library } = useWeb3React()

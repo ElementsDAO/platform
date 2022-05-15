@@ -1,4 +1,7 @@
 import React from 'react'
+import Web3 from 'web3'
+import Link from 'next/link'
+
 import {
   Avatar,
   Box,
@@ -8,13 +11,14 @@ import {
   Typography,
 } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import Web3 from 'web3'
-import Link from 'next/link'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const APPLICATION_ABI = require('../../../src/contracts/applications.json')
+const APPLICATION_ABI = require('@contracts/applications.json')
 
-const ListItem = ({ address }): any => {
+interface Props {
+  address: string
+}
+
+const ListItem: React.FC<Props> = ({ address }) => {
   console.log('ApplicationListItem::address', address)
 
   const DemoApplication = {
@@ -26,7 +30,6 @@ const ListItem = ({ address }): any => {
 
   const init = async function (_account, _library): Promise<any> {
     let data
-    const dataArray = []
     try {
       const web3 = new Web3(_library.provider)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
@@ -55,6 +58,7 @@ const ListItem = ({ address }): any => {
     }
     return null
   }, [account, library, chainId])
+
   return (
     <Link href={{ pathname: `/projects/${address}` }}>
       <Box sx={{

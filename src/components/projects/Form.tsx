@@ -1,10 +1,12 @@
 import React from 'react'
+import { create as ipfsHttpClient } from 'ipfs-http-client'
+import { useRouter } from 'next/router'
+
 import { Box, Container, TextField, Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import { create as ipfsHttpClient } from 'ipfs-http-client'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useRouter } from 'next/router'
-import Button from '../Button'
+
+import Button from '@components/Button'
 
 const Form = ({ contract }): any => {
   const { account } = useWeb3React()
@@ -36,14 +38,10 @@ const Form = ({ contract }): any => {
   }
 
   const createApplication = async (): Promise<any> => {
-    console.log('öp')
-
     setLoadingMessage('create Application...')
     setLoading(true)
     const { name, description, price } = formInput
-    // if (!name || !description || !price || !fileUrl) return
-    console.log('first, upload to IPFS')
-    /* first, upload to IPFS */
+
     const data = JSON.stringify({
       name,
       description,
@@ -52,12 +50,11 @@ const Form = ({ contract }): any => {
     try {
       const added = await client.add(data)
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
-      /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-      console.log('url', url)
+
       const x = await contract.methods
         .createApplication(price, url)
         .send({ from: account })
-      console.log('createApplication', x)
+
       router.push('/')
 
       setLoading(false)

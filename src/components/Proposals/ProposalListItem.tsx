@@ -1,4 +1,5 @@
 import React from 'react'
+
 import {
   Avatar,
   Button,
@@ -10,37 +11,16 @@ import {
 import { useWeb3React } from '@web3-react/core'
 
 const ProposalListItem = ({ contract, proposal }): any => {
-  console.log('ApplicationListItem::proposal', proposal)
-
-  const DemoProposal = {
-    name: 'Not loaded!',
-    description: 'Not loaded!',
-    id: 0,
-  }
-  const { account, library, chainId } = useWeb3React()
-  const [application, setApplication] = React.useState(DemoProposal)
-
-  const init = async function (_account, _library): Promise<any> {
-    let data
-    const dataArray = []
-  }
+  const { account } = useWeb3React()
 
   const vote = async (id: any): Promise<any> => {
-    console.log('vote on: ', id)
     try {
-      const x = await contract.methods.vote(id).send({ from: account })
-      console.log('vote', x)
+      await contract.methods.vote(id).send({ from: account })
     } catch (error) {
       console.log('Error uploading file: ', error)
     }
   }
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
-    }
-    return null
-  }, [account, library, chainId, proposal])
   return (
     <ListItem alignItems='flex-start'>
       <ListItemAvatar>

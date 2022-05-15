@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@mui/material'
+
 import theme from './theme'
 
 export interface ThemeProviderProps {

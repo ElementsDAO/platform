@@ -1,19 +1,21 @@
 import * as React from 'react'
 import Head from 'next/head'
-import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
-import { Box, Button, Container, Grid, Input, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/router'
+
+import { useWeb3React } from '@web3-react/core'
+import { Box, Button, Container, Grid, Input, TextField, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
-import NewProposal from '../src/components/Proposals/NewProposal'
-import ProposalList from '../src/components/Proposals/ProposalList'
-import AddVoter from '../src/components/Proposals/AddVoter'
-import Base from '../src/layouts/Base'
-import { bytecode } from '../src/contracts/voteBytecode'
 
-const GOV_ABI = require('../src/contracts/liquidDemocracy.json')
+import NewProposal from '@components/Proposals/NewProposal'
+import ProposalList from '@components/Proposals/ProposalList'
+import AddVoter from '@components/Proposals/AddVoter'
+import Base from '@layouts/Base'
+import { bytecode } from '@contracts/voteBytecode'
 
-const Stake = (): any => {
+const GOV_ABI = require('@contracts/liquidDemocracy.json')
+
+const Stake: React.FC = () => {
   const router = useRouter()
   const { query } = useRouter()
 
@@ -37,15 +39,12 @@ const Stake = (): any => {
 
     if (typeof tempAddress === 'string' && web3.utils.isAddress(tempAddress)) {
       setLoading(true)
-      console.log('proposal detected!')
       setAddress(tempAddress)
 
       const tempContract = new web3.eth.Contract(GOV_ABI, tempAddress)
       setContract(tempContract)
       try {
         const data = await tempContract.methods.getProposalCount().call()
-
-        console.log('getProposalCount:', data)
         setProposalCount(data)
         setLoading(false)
       } catch (error) {
@@ -63,9 +62,6 @@ const Stake = (): any => {
       const x = await new web3.eth.Contract(GOV_ABI)
         .deploy({ data: bytecode, arguments: ['First Proposal'] })
         .send({ gas: 0, from: account })
-
-      console.log('createContract', x)
-      console.log('Contract deployed to', x.options.address)
 
       setAddress(x.options.address)
       setLoading(false)

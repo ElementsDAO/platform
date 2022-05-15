@@ -1,15 +1,10 @@
 import * as React from 'react'
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-} from '@mui/material'
-import Base from '../src/layouts/Base'
-import { experts } from '../src/data/experts'
-import Button from '../src/components/Button'
+
+import { Card, CardContent, Container, Grid, Typography } from '@mui/material'
+
+import Button from '@components/Button'
+import { experts } from '@data/experts'
+import Base from '@layouts/Base'
 
 const Experts: React.FC = () => {
   return (

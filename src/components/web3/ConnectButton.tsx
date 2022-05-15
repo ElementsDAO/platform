@@ -2,10 +2,10 @@ import React from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { Web3Provider } from '@ethersproject/providers'
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
-// eslint-disable-next-line max-len
+
 import { useEagerConnect, useInactiveListener } from './hooks'
 import { injected } from './hooks/connectors'
-import Button from '../Button'
+import Button from '@components/Button'
 
 enum ConnectorNames {
   Injected = 'Connect',

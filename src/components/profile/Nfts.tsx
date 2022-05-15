@@ -1,12 +1,15 @@
 import React from 'react'
+import Web3 from 'web3'
+
 import { Web3Provider } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
-import Web3 from 'web3'
-import { ELEMENTARY_NFT } from '../../../config'
+
 import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
-const ELEMENTARY_NFT_ABI = require('../../../src/contracts/elementaryNft.json')
+import { ELEMENTARY_NFT } from '@config'
+
+const ELEMENTARY_NFT_ABI = require('@contracts/elementaryNft.json')
 
 const NFTS = [
   'https://cdn.discordapp.com/attachments/420674357652750367/975211600824905778/water.gif',
@@ -16,8 +19,6 @@ const NFTS = [
 ]
 
 const Nfts: React.FC = () => {
-  const [nfts, setNfts] = React.useState<Array<any>>([])
-
   const web3 = useWeb3React<Web3Provider>()
   const { account, library } = web3
 

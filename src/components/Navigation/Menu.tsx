@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box } from '@mui/material'
-import Button from '../Button'
 import { useRouter } from 'next/router'
-import { MenuItemProps } from './index'
+
+import { Box } from '@mui/material'
+
+import Button from '../Button'
 import { MENU } from './config'
 
 

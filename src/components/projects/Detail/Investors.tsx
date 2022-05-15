@@ -16,7 +16,7 @@ const Investors: React.FC<Props> = (props) => {
       boxShadow: 1
     }}>
       <Typography fontWeight='bold'>Investors</Typography>
-      {investors.length > 1 ? (
+      {investors && investors.length > 1 ? (
         <ul>
           {investors.map((addr) => (
             <li key={`investor-${addr}`}>{addr}</li>

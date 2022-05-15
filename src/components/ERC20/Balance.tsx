@@ -1,18 +1,22 @@
 import React from 'react'
+import Web3 from 'web3'
+
 import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
-import Web3 from 'web3'
-import { USDT_ADDRESS } from '../../../config'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const ERC20_ABI = require('../../src/contracts/erc20.json')
+import { USDT_ADDRESS } from '@config'
 
-const Balance = ({ address }): any => {
+const ERC20_ABI = require('@contracts/erc20.json')
+
+interface Props {
+  address: string
+}
+
+const Balance: React.FC<Props> = ({ address }) => {
   const { account, library, chainId } = useWeb3React()
   const [balance, setBalance] = React.useState([])
 
   const init = async (_account, _library): Promise<any> => {
-    console.log('Balance::address USDT', address)
     const web3 = new Web3(_library.provider)
     const contract = new web3.eth.Contract(ERC20_ABI, USDT_ADDRESS)
 
@@ -20,13 +24,18 @@ const Balance = ({ address }): any => {
     console.log('Balance::address USDT', x)
     setBalance(x)
   }
+
   React.useEffect(() => {
     if (!!account && !!library && !!address) {
       init(account, library)
     }
     return null
   }, [account, library, chainId, address])
-  return <Typography>Balance: {balance} USDT</Typography>
+  return (
+    <Typography>
+      Balance: {balance} USDT
+    </Typography>
+  )
 }
 
 export default Balance
