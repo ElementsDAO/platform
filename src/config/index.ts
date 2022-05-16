@@ -1,4 +1,4 @@
-import { HOME, PROJECTS, EXPERTS, PROFILE } from './menu'
+import { EXPERTS, HOME, PROFILE, PROJECTS } from './menu'
 
 export const config = {
   contracts: {
@@ -7,6 +7,7 @@ export const config = {
     nft: '0x05ddb552509dB9E15B83d515269811d826bDc4b3',
     nftStake: '0x1A7ADA54E2372bE433D97F99391F5F7Fcb5D1322',
     elementary: '0x05ddb552509dB9E15B83d515269811d826bDc4b3',
+    vele: '0xebEd501499b90De14De12e69dE72eaa954c242B8',
   },
   menu: [HOME, PROJECTS, EXPERTS],
   mobileMenu: [HOME, PROJECTS, EXPERTS, PROFILE],
