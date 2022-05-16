@@ -9,7 +9,7 @@ import { Grid, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 
 import config from '@config'
-import Button from '@components/button'
+import Button from '@components/Button'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTARY_NFT_ABI = require('@contracts/elementaryNft.json')

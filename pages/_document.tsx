@@ -5,7 +5,7 @@ import createEmotionCache from '@theme/createEmotionCache'
 import theme from '@theme/theme'
 
 export default class MyDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <Html lang='en'>
         <Head>
