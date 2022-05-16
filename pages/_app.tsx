@@ -26,9 +26,10 @@ const App: React.FC<MyAppProps> = (props) => {
   const { pageProps, emotionCache = clientSideEmotionCache, Component } = props
 
   return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <CacheProvider value={emotionCache}>
+    <CacheProvider value={emotionCache}>
+      <Web3ReactProvider getLibrary={getLibrary}>
         <Head>
+          <meta name='viewport' content='initial-scale=1, width=device-width' />
           <link rel='preconnect' href='https://fonts.googleapis.com' />
           <link
             rel='preconnect'
@@ -45,8 +46,8 @@ const App: React.FC<MyAppProps> = (props) => {
             <Component {...pageProps} />
           </ContractsProvider>
         </ThemeProvider>
-      </CacheProvider>
-    </Web3ReactProvider>
+      </Web3ReactProvider>
+    </CacheProvider>
   )
 }
 
