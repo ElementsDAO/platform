@@ -25,32 +25,32 @@ const NFTS = [
 
 const Nfts: React.FC = () => {
   const context = useWeb3React<Web3Provider>()
-  const { account, library } = context
+  const { account } = context
   const [vele, setVele] = React.useState([])
   const [veleContract, setVeleContract] = React.useState(undefined)
   const router = useRouter()
 
-  const init = async function (_account, _library): Promise<any> {
-    const web3 = new Web3(_library.provider)
-    const contract = new web3.eth.Contract(
-      ELEMENTARY_NFT_ABI,
-      config.contracts.elementary
-    )
-    const tempVeleContract = new web3.eth.Contract(
-      VELE_NFT_ABI,
-      config.contracts.vele
-    )
+  // const init = async function (_account): Promise<any> {
+  //   const web3 = new Web3(_library.provider)
+  //   const contract = new web3.eth.Contract(
+  //     ELEMENTARY_NFT_ABI,
+  //     config.contracts.elementary
+  //   )
+  //   const tempVeleContract = new web3.eth.Contract(
+  //     VELE_NFT_ABI,
+  //     config.contracts.vele
+  //   )
 
-    setVeleContract(tempVeleContract)
-    const data = await tempVeleContract.methods.walletOfOwner(_account).call()
-    setVele(data)
-    console.log('data', data)
-    const waterCount = await contract.methods.balanceOf(_account, 0).call()
-    const fireCount = await contract.methods.balanceOf(_account, 1).call()
-    const earthCount = await contract.methods.balanceOf(_account, 2).call()
-    const airCount = await contract.methods.balanceOf(_account, 3).call()
-    console.log('Counts: ', waterCount, fireCount, earthCount, airCount)
-  }
+  //   setVeleContract(tempVeleContract)
+  //   const data = await tempVeleContract.methods.walletOfOwner(_account).call()
+  //   setVele(data)
+  //   console.log('data', data)
+  //   const waterCount = await contract.methods.balanceOf(_account, 0).call()
+  //   const fireCount = await contract.methods.balanceOf(_account, 1).call()
+  //   const earthCount = await contract.methods.balanceOf(_account, 2).call()
+  //   const airCount = await contract.methods.balanceOf(_account, 3).call()
+  //   console.log('Counts: ', waterCount, fireCount, earthCount, airCount)
+  // }
 
   const buy = async (): Promise<any> => {
     console.log('buy')
@@ -61,11 +61,11 @@ const Nfts: React.FC = () => {
     router.reload()
   }
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
-    }
-  }, [account, library])
+  // React.useEffect(() => {
+  //   if (account) {
+  //     init(account)
+  //   }
+  // }, [account])
 
   return (
     <>

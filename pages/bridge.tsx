@@ -5,17 +5,21 @@ import { useRouter } from 'next/router'
 import Web3 from 'web3'
 
 import { useWeb3React } from '@web3-react/core'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-} from '@mui/material'
+import { Container, Typography } from '@mui/material'
 
 import config from '@config'
 import Base from '@layouts/Base'
+import { hooks, network } from '@components/web3/connectors/network'
+
+const {
+  useChainId,
+  useAccounts,
+  useError,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
@@ -28,8 +32,9 @@ const DepositInfo = {
   stake: 0,
   rewards: 0,
 }
-const Stake = (): any => {
+const Bridge = (): any => {
   const router = useRouter()
+  const provider = useProvider()
 
   const [contract, setContract] = React.useState(undefined)
   const [nfts, setNfts] = React.useState(undefined)
@@ -39,8 +44,8 @@ const Stake = (): any => {
   const [poolBalance, setPoolBalance] = React.useState(undefined)
   const [depositInfo, setDepositInfo] = React.useState(DepositInfo)
 
-  // const init = async function (_account, _library): Promise<any> {
-  //   const web3 = new Web3(_library.provider)
+  // const init = async function (): Promise<any> {
+  //   const web3 = new Web3(provider.connection.url)
   //   const tempContract = new web3.eth.Contract(
   //     ELEMENTS_ABI,
   //     config.contracts.elements
@@ -115,69 +120,13 @@ const Stake = (): any => {
 
   return (
     <Base>
-      <Head>
-        <title>Stake</title>
-      </Head>
-      <section>
-        {/* <Typography variant='h2' color='text.primary'>
-          Stake ELE Tokens.
+      <Container maxWidth='md'>
+        <Typography variant='h2' fontWeight='bold' gutterBottom>
+          Bridge
         </Typography>
-        <Typography variant='body2' color='text.primary'>
-          Here you can get stake your ELE tokens to earn some rewards.
-        </Typography>
-        <Typography variant='body2' color='text.primary'>
-          Balance: {balance} ELE
-        </Typography>
-        <Typography variant='body2' color='text.primary'>
-          Staked ELE: {depositInfo.stake}
-        </Typography>
-        <Typography variant='body2' color='text.primary'>
-          Rewards: {depositInfo.rewards}
-        </Typography>
-        <Button onClick={() => stake()}>Stake</Button>
-      </section>
-      <section>
-        <Typography variant='h2' color='text.primary'>
-          Stake Elementary Energy NFTs.
-        </Typography>
-        <Typography gutterBottom variant='h6'>
-          poolBalance:{poolBalance}
-        </Typography>
-        {nfts?.length === 0 ? (
-          <Typography gutterBottom variant='h6'>
-            You don&apos;t own any Elementary Energy NFTs yet :(
-          </Typography>
-        ) : (
-          <Grid container spacing={6}>
-            {nfts?.flatMap((bot) => (
-              <Grid item key={bot} xs={2} sm={3} md={4}>
-                <Link href={`https://elementary.energy/nfts/${bot}`}>
-                  <Card
-                    sx={{
-                      minWidth: '100%',
-                      cursor: 'pointer',
-                      bgcolor: 'rgba(0,0,0,0.5)',
-                    }}
-                  >
-                    <CardMedia
-                      image={`https://elementary.energy/nfts/${bot}`}
-                    />
-                    <CardContent sx={{ p: 4, pb: '12px !important' }}>
-                      <Typography variant='h6' mb={0}>
-                        {`Elementary Energy NFT #${bot}`}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-        )}
-        <Button onClick={() => stakeNft()}>Stake NFT</Button>
-        <Button onClick={() => unstakeNft()}>UnStake NFT</Button> */}
-      </section>
+      </Container>
     </Base>
   )
 }
 
-export default Stake
+export default Bridge

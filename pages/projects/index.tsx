@@ -8,18 +8,30 @@ import { ContractsContext } from '@context/ContractsProvider'
 import Button from '@components/Button'
 import List from '@components/projects/List'
 import Base from '@layouts/Base'
+import { hooks, network } from '@components/web3/connectors/network'
 
-const Home: React.FC = () => {
+const {
+  useChainId,
+  useAccounts,
+  useError,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks
+
+const Projects: React.FC = () => {
   const { push } = useRouter()
-  const { element } = React.useContext(ContractsContext)
+  const isActive = useIsActive()
 
-  const [count, setCount] =
-    React.useState<number | undefined>(undefined)
+  const { element } = React.useContext(ContractsContext)
+  console.log('element', element)
+
+  const [count, setCount] = React.useState<number | undefined>(undefined)
 
   const queryCount = async function (): Promise<any> {
     try {
-      const data =
-        await element.methods.applications_count().call()
+      const data = await element.methods.applications_count().call()
       setCount(data)
     } catch (error) {
       console.log('error', error)
@@ -27,8 +39,10 @@ const Home: React.FC = () => {
   }
 
   React.useEffect(() => {
-    queryCount()
-  }, [])
+    if (isActive) {
+      queryCount()
+    }
+  }, [isActive])
 
   return (
     <Base>
@@ -36,12 +50,14 @@ const Home: React.FC = () => {
         <title>Applications</title>
       </Head>
       <Container maxWidth='md'>
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mb: 2
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
           <Typography fontWeight='bold' variant='h2'>
             Projects
           </Typography>
@@ -49,12 +65,10 @@ const Home: React.FC = () => {
             Create new Project
           </Button>
         </Box>
-        {count && (
-          <List count={count} />
-        )}
+        {count && <List count={count} />}
       </Container>
     </Base>
   )
 }
 
-export default Home
+export default Projects

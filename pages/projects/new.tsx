@@ -11,36 +11,33 @@ import config from '@config'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTS_ABI = require('@contracts/elements.json')
 
-const New: React.FC = () => {
-  const { account, library } = useWeb3React()
-  const [elementContract, setElementContract] = React.useState(undefined)
+const New: React.FC = () => (
+  // const [elementContract, setElementContract] = React.useState(undefined)
 
-  const init = async function (_account, _library): Promise<any> {
-    const web3 = new Web3(_library.provider)
-    const tempGameDuelContract = new web3.eth.Contract(
-      ELEMENTS_ABI,
-      config.contracts.elements
-    )
-    setElementContract(tempGameDuelContract)
-  }
+  // const init = async function (_account, _library): Promise<any> {
+  //   const web3 = new Web3(_library.provider)
+  //   const tempGameDuelContract = new web3.eth.Contract(
+  //     ELEMENTS_ABI,
+  //     config.contracts.elements
+  //   )
+  //   setElementContract(tempGameDuelContract)
+  // }
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
-    }
-    return null
-  }, [account, library])
+  // React.useEffect(() => {
+  //   if (!!account && !!library) {
+  //     init()
+  //   }
+  //   return null
+  // }, [account, library])
 
-  return (
-    <Base>
-      <Container maxWidth='sm'>
-        <Typography gutterBottom fontWeight='bold' variant='h2'>
-          New
-        </Typography>
-      </Container>
-      <Form contract={elementContract} />
-    </Base>
-  )
-}
+  <Base>
+    <Container maxWidth='sm'>
+      <Typography gutterBottom fontWeight='bold' variant='h2'>
+        New
+      </Typography>
+    </Container>
+    {/* <Form contract={elementContract} /> */}
+  </Base>
+)
 
 export default New

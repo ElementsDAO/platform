@@ -10,7 +10,6 @@ import ProposalListItem from './ProposalListItem'
 const GOV_ABI = require('@contracts/applications.json')
 
 const ProposalList = ({ contract, count }): any => {
-  const { account, library, chainId } = useWeb3React()
   const [proposals, setProposals] = React.useState([])
 
   const init = async function (_account, _library): Promise<any> {
@@ -37,19 +36,18 @@ const ProposalList = ({ contract, count }): any => {
     }
   }
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
-    }
-    return null
-  }, [account, library, chainId, contract, count])
+  // React.useEffect(() => {
+  //   if (!!account && !!library) {
+  //     init(account, library)
+  //   }
+  //   return null
+  // }, [account, library, chainId, contract, count])
   const createApplication = async (): Promise<any> => {
-    console.log('öp')
-
-    const x = await contract.methods
-      .createApplication(1337)
-      .send({ from: account })
-    console.log('öp', x)
+    console.log('TODO: Add metamask provider')
+    // const x = await contract.methods
+    //   .createApplication(1337)
+    //   .send({ from: account })
+    // console.log('öp', x)
   }
   const changeAmount = (value: number): void => {
     console.log('öp', value)

@@ -28,7 +28,6 @@ const Stake: React.FC = () => {
   const router = useRouter()
   const { query } = useRouter()
 
-  const { account, library, chainId } = useWeb3React()
   const [contract, setContract] = React.useState(undefined)
   const [loading, setLoading] = React.useState(false)
   const [proposalCount, setProposalCount] = React.useState(0)
@@ -41,56 +40,57 @@ const Stake: React.FC = () => {
     addr: '',
   })
 
-  const init = async function (_account, _library): Promise<any> {
-    const web3 = new Web3(_library.provider)
+  // const init = async function (_account, _library): Promise<any> {
+  //   const web3 = new Web3(_library.provider)
 
-    const tempAddress = query.addr || undefined
+  //   const tempAddress = query.addr || undefined
 
-    if (typeof tempAddress === 'string' && web3.utils.isAddress(tempAddress)) {
-      setLoading(true)
-      setAddress(tempAddress)
+  //   if (typeof tempAddress === 'string' && web3.utils.isAddress(tempAddress)) {
+  //     setLoading(true)
+  //     setAddress(tempAddress)
 
-      const tempContract = new web3.eth.Contract(GOV_ABI, tempAddress)
-      setContract(tempContract)
-      try {
-        const data = await tempContract.methods.getProposalCount().call()
-        setProposalCount(data)
-        setLoading(false)
-      } catch (error) {
-        console.log('Error createProposal: ', error)
-        setLoading(false)
-      }
-    }
-  }
+  //     const tempContract = new web3.eth.Contract(GOV_ABI, tempAddress)
+  //     setContract(tempContract)
+  //     try {
+  //       const data = await tempContract.methods.getProposalCount().call()
+  //       setProposalCount(data)
+  //       setLoading(false)
+  //     } catch (error) {
+  //       console.log('Error createProposal: ', error)
+  //       setLoading(false)
+  //     }
+  //   }
+  // }
 
   const createContract = async (): Promise<any> => {
-    setLoadingMessage('createContract...')
-    setLoading(true)
-    try {
-      const web3 = new Web3(library.provider)
-      const x = await new web3.eth.Contract(GOV_ABI)
-        .deploy({ data: bytecode, arguments: ['First Proposal'] })
-        .send({ gas: 0, from: account })
+    console.log('TODO: Add MetaMask provider')
+    // setLoadingMessage('createContract...')
+    // setLoading(true)
+    // try {
+    //   const web3 = new Web3(library.provider)
+    //   const x = await new web3.eth.Contract(GOV_ABI)
+    //     .deploy({ data: bytecode, arguments: ['First Proposal'] })
+    //     .send({ gas: 0, from: account })
 
-      setAddress(x.options.address)
-      setLoading(false)
-      router.push('/vote', { query: { addr: x.options.address } })
-    } catch (error) {
-      console.log('Error createContract: ', error)
-      setLoading(false)
-    }
+    //   setAddress(x.options.address)
+    //   setLoading(false)
+    //   router.push('/vote', { query: { addr: x.options.address } })
+    // } catch (error) {
+    //   console.log('Error createContract: ', error)
+    //   setLoading(false)
+    // }
   }
   const search = async (): Promise<any> => {
     setLoading(true)
     router.push('/vote', { query: searchInput })
   }
 
-  React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
-    }
-    return null
-  }, [account, library, chainId, address])
+  // React.useEffect(() => {
+  //   if (!!account && !!library) {
+  //     init(account, library)
+  //   }
+  //   return null
+  // }, [account, library, chainId, address])
 
   return (
     <Base>

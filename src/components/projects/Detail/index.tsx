@@ -4,11 +4,21 @@ import { useWeb3React } from '@web3-react/core'
 import Web3 from 'web3'
 
 import config from '@config'
+import { hooks, network } from '@components/web3/connectors/network'
 import CoverImage from './CoverImage'
 import Content from './Content'
 import Invest from './Invest'
 import Investors from './Investors'
 
+const {
+  useChainId,
+  useAccounts,
+  useError,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const APPLICATION_ABI = require('@contracts/applications.json')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -22,7 +32,8 @@ const DemoApplication = {
 }
 
 const Detail = ({ address }): any => {
-  const { account, library, chainId } = useWeb3React()
+  const isActive = useIsActive()
+  const provider = useProvider()
 
   const [contract, setContract] = React.useState(undefined)
   const [balance, setBalance] = React.useState(undefined)
@@ -35,10 +46,10 @@ const Detail = ({ address }): any => {
 
   const [application, setApplication] = React.useState(DemoApplication)
 
-  const init = async function (_account, _library): Promise<any> {
+  const init = async function (): Promise<any> {
     let data
     try {
-      const web3 = new Web3(_library.provider)
+      const web3 = new Web3(provider.connection.url)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
       const tempContract2 = new web3.eth.Contract(
         ERC20_ABI,
@@ -90,22 +101,24 @@ const Detail = ({ address }): any => {
   }
 
   const onSubmitInvest = async (): Promise<any> => {
-    const web3 = new Web3(library.provider)
-    const correctTnvestAmount = web3.utils.toBN(investAmount * 10 ** 18)
+    console.log('TODO: Use metamask provider')
+    // TODO: Use metamask provider
+    // const web3 = new Web3(library.provider)
+    // const correctTnvestAmount = web3.utils.toBN(investAmount * 10 ** 18)
 
-    await usdt.methods
-      .approve(address, correctTnvestAmount)
-      .send({ from: account })
+    // await usdt.methods
+    //   .approve(address, correctTnvestAmount)
+    //   .send({ from: account })
 
-    await contract.methods.invest(correctTnvestAmount).send({ from: account })
+    // await contract.methods.invest(correctTnvestAmount).send({ from: account })
   }
 
   React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
+    if (isActive) {
+      init()
     }
     return null
-  }, [account, library, chainId])
+  }, [isActive])
 
   return (
     <Box>

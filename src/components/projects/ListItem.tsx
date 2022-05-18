@@ -12,27 +12,39 @@ import {
 } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 
+import { hooks, network } from '@components/web3/connectors/network'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const APPLICATION_ABI = require('@contracts/applications.json')
 
+const {
+  useChainId,
+  useAccounts,
+  useError,
+  useIsActivating,
+  useIsActive,
+  useProvider,
+  useENSNames,
+} = hooks
 interface Props {
   address: string
 }
 
 const ListItem: React.FC<Props> = ({ address }) => {
   console.log('ApplicationListItem::address', address)
+  const isActive = useIsActive()
+  const provider = useProvider()
 
   const DemoApplication = {
     name: 'Demo',
     description: 'Demo',
   }
-  const { account, library, chainId } = useWeb3React()
   const [application, setApplication] = React.useState(DemoApplication)
 
-  const init = async function (_account, _library): Promise<any> {
+  const init = async function (): Promise<any> {
     let data
+
     try {
-      const web3 = new Web3(_library.provider)
+      const web3 = new Web3(provider.connection.url)
       const tempContract = new web3.eth.Contract(APPLICATION_ABI, address)
 
       try {
@@ -54,11 +66,11 @@ const ListItem: React.FC<Props> = ({ address }) => {
   }
 
   React.useEffect(() => {
-    if (!!account && !!library) {
-      init(account, library)
+    if (isActive) {
+      init()
     }
     return null
-  }, [account, library, chainId])
+  }, [isActive])
 
   return (
     <Link href={{ pathname: `/projects/${address}` }}>
