@@ -1,8 +1,5 @@
 import React from 'react'
 import Web3 from 'web3'
-
-import { Web3Provider } from '@ethersproject/providers'
-import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router'
 
 import { Grid, Typography } from '@mui/material'
@@ -10,11 +7,17 @@ import { Box } from '@mui/system'
 
 import config from '@config'
 import Button from '@components/Button'
+import { hooks as netHooks } from '@components/web3/connectors/network'
+import { hooks, metaMask } from '@components/web3/connectors/metaMask'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ELEMENTARY_NFT_ABI = require('@contracts/elementaryNft.json')
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const VELE_NFT_ABI = require('@contracts/vele.json')
+
+const { useAccounts, useError, useIsActivating, useIsActive, useENSNames } =
+  hooks
+const { useProvider, useChainId } = netHooks
 
 const NFTS = [
   'https://cdn.discordapp.com/attachments/420674357652750367/975211600824905778/water.gif',
@@ -24,33 +27,46 @@ const NFTS = [
 ]
 
 const Nfts: React.FC = () => {
-  const context = useWeb3React<Web3Provider>()
-  const { account } = context
+  const chainId = useChainId()
+  const isActive = useIsActive()
+  const isActiveNetwork = netHooks.useIsActive()
+  const provider = useProvider()
+  const accounts = useAccounts()
+
   const [vele, setVele] = React.useState([])
   const [veleContract, setVeleContract] = React.useState(undefined)
+  const [account, setAccount] = React.useState(undefined)
   const router = useRouter()
 
-  // const init = async function (_account): Promise<any> {
-  //   const web3 = new Web3(_library.provider)
-  //   const contract = new web3.eth.Contract(
-  //     ELEMENTARY_NFT_ABI,
-  //     config.contracts.elementary
-  //   )
-  //   const tempVeleContract = new web3.eth.Contract(
-  //     VELE_NFT_ABI,
-  //     config.contracts.vele
-  //   )
+  const init = async function (): Promise<any> {
+    console.log('provider', provider)
+    console.log('account:', accounts[0])
+    setAccount(accounts[0])
+    const web3 = new Web3(provider.connection.url)
+    console.log('web3', web3)
+    const contract = new web3.eth.Contract(
+      ELEMENTARY_NFT_ABI,
+      config.contracts.elementary
+    )
+    const tempVeleContract = new web3.eth.Contract(
+      VELE_NFT_ABI,
+      config.contracts.vele
+    )
+    setVeleContract(tempVeleContract)
 
-  //   setVeleContract(tempVeleContract)
-  //   const data = await tempVeleContract.methods.walletOfOwner(_account).call()
-  //   setVele(data)
-  //   console.log('data', data)
-  //   const waterCount = await contract.methods.balanceOf(_account, 0).call()
-  //   const fireCount = await contract.methods.balanceOf(_account, 1).call()
-  //   const earthCount = await contract.methods.balanceOf(_account, 2).call()
-  //   const airCount = await contract.methods.balanceOf(_account, 3).call()
-  //   console.log('Counts: ', waterCount, fireCount, earthCount, airCount)
-  // }
+    try {
+      const data = await tempVeleContract.methods.walletOfOwner(account).call()
+      setVele(data)
+      console.log('data', data)
+      const waterCount = await contract.methods.balanceOf(account, 0).call()
+      const fireCount = await contract.methods.balanceOf(account, 1).call()
+      const earthCount = await contract.methods.balanceOf(account, 2).call()
+      const airCount = await contract.methods.balanceOf(account, 3).call()
+      console.log('Counts: ', waterCount, fireCount, earthCount, airCount)
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
 
   const buy = async (): Promise<any> => {
     console.log('buy')
@@ -61,11 +77,17 @@ const Nfts: React.FC = () => {
     router.reload()
   }
 
-  // React.useEffect(() => {
-  //   if (account) {
-  //     init(account)
-  //   }
-  // }, [account])
+  React.useEffect(() => {
+    if (isActive && isActiveNetwork && chainId) {
+      init()
+    }
+  }, [isActive, chainId, NFTS])
+
+  // attempt to connect eagerly on mount
+  React.useEffect(() => {
+    // eslint-disable-next-line no-void
+    void metaMask.connectEagerly()
+  }, [])
 
   return (
     <>

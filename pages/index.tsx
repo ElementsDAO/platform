@@ -22,10 +22,10 @@ const {
 } = hooks
 
 const Home: React.FC = () => {
+  const isActive = useIsActive()
   const provider = useProvider()
   const [totalSupply, setTotalSupply] = React.useState(undefined)
   const [count, setCount] = React.useState(undefined)
-  const isActive = useIsActive()
   const chainId = useChainId()
   const accounts = useAccounts()
   const error = useError()
