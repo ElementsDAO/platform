@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Box, BoxProps } from '@mui/material'
 
 import { Navigation } from '@components/Navigation'
+import Access from '@components/web3/Access'
 import Logo from '@components/Logo'
 
 const Base: React.FC<BoxProps> = (props) => {
@@ -16,7 +17,7 @@ const Base: React.FC<BoxProps> = (props) => {
         logo={<Logo />}
         onClickProfile={() => push('/profile')}
       />
-      {children}
+      <Access children={children} />
     </Box>
   )
 }

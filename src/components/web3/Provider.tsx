@@ -38,13 +38,19 @@ const connectors: any = [
 const Child = (): any => {
   const { connector } = useWeb3React()
   console.log(`Priority Connector is: ${getName(connector)}`)
+  console.log('connector', connector)
   return null
 }
 
 export const Provider = (): any => {
   React.useEffect(() => {
     // eslint-disable-next-line no-void
-    void network.activate(97)
+    void network.activate(1074)
+  }, [])
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-void
+    void metaMask.connectEagerly()
   }, [])
 
   return (

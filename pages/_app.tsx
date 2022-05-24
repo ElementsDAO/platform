@@ -1,21 +1,11 @@
 import * as React from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/dist/shared/lib/router/router'
-
-import { Web3Provider } from '@ethersproject/providers'
-import { Web3ReactProvider } from '@web3-react/core'
 import { CacheProvider, EmotionCache } from '@emotion/react'
-
 import createEmotionCache from '@theme/createEmotionCache'
 import ThemeProvider from '@theme/ThemeProvider'
 import ContractsProvider from '@context/ContractsProvider'
 import { Provider } from '@components/web3/Provider'
-
-const getLibrary = (provider: any): Web3Provider => {
-  const library = new Web3Provider(provider)
-  library.pollingInterval = 1000
-  return library
-}
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -25,7 +15,6 @@ interface MyAppProps extends AppProps {
 
 const App: React.FC<MyAppProps> = (props) => {
   const { pageProps, emotionCache = clientSideEmotionCache, Component } = props
-
   return (
     <CacheProvider value={emotionCache}>
       <Provider />
