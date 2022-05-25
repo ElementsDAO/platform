@@ -3,28 +3,24 @@ import Head from 'next/head'
 import Web3 from 'web3'
 import { useRouter } from 'next/router'
 
-import { useWeb3React } from '@web3-react/core'
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Input,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import NewProposal from '@components/Proposals/NewProposal'
 import ProposalList from '@components/Proposals/ProposalList'
-import AddVoter from '@components/Proposals/AddVoter'
+// import AddVoter from '@components/Proposals/AddVoter'
 import Base from '@layouts/Base'
-import { bytecode } from '@contracts/voteBytecode'
+import { hooks as netHooks } from '@components/web3/connectors/network'
+import { hooks, metaMask } from '@components/web3/connectors/metaMask'
+import config from '@config'
+
+const { useAccounts, useError, useIsActivating, useIsActive, useENSNames } =
+  hooks
+const { useProvider, useChainId } = netHooks
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const GOV_ABI = require('@contracts/liquidDemocracy.json')
 
-const Stake: React.FC = () => {
+const Vote: React.FC = () => {
   const router = useRouter()
   const { query } = useRouter()
 
@@ -33,64 +29,37 @@ const Stake: React.FC = () => {
   const [proposalCount, setProposalCount] = React.useState(0)
   const [address, setAddress] = React.useState(undefined)
   const [loadingMessage, setLoadingMessage] = React.useState('')
-  const [formInput, updateFormInput] = React.useState({
-    name: '',
-  })
-  const [searchInput, updateSearchInput] = React.useState({
-    addr: '',
-  })
 
-  // const init = async function (_account, _library): Promise<any> {
-  //   const web3 = new Web3(_library.provider)
+  const chainId = useChainId()
+  const isActive = useIsActive()
+  const isActiveNetwork = netHooks.useIsActive()
+  const provider = useProvider()
+  const accounts = useAccounts()
 
-  //   const tempAddress = query.addr || undefined
+  const [account, setAccount] = React.useState(undefined)
 
-  //   if (typeof tempAddress === 'string' && web3.utils.isAddress(tempAddress)) {
-  //     setLoading(true)
-  //     setAddress(tempAddress)
+  const init = async function (): Promise<any> {
+    console.log('provider', provider)
+    console.log('account:', accounts[0])
+    setAccount(accounts[0])
+    const web3 = new Web3(provider.connection.url)
+    console.log('web3', web3)
+    const tempContract = new web3.eth.Contract(GOV_ABI, config.contracts.gov)
+    setContract(tempContract)
 
-  //     const tempContract = new web3.eth.Contract(GOV_ABI, tempAddress)
-  //     setContract(tempContract)
-  //     try {
-  //       const data = await tempContract.methods.getProposalCount().call()
-  //       setProposalCount(data)
-  //       setLoading(false)
-  //     } catch (error) {
-  //       console.log('Error createProposal: ', error)
-  //       setLoading(false)
-  //     }
-  //   }
-  // }
-
-  const createContract = async (): Promise<any> => {
-    console.log('TODO: Add MetaMask provider')
-    // setLoadingMessage('createContract...')
-    // setLoading(true)
-    // try {
-    //   const web3 = new Web3(library.provider)
-    //   const x = await new web3.eth.Contract(GOV_ABI)
-    //     .deploy({ data: bytecode, arguments: ['First Proposal'] })
-    //     .send({ gas: 0, from: account })
-
-    //   setAddress(x.options.address)
-    //   setLoading(false)
-    //   router.push('/vote', { query: { addr: x.options.address } })
-    // } catch (error) {
-    //   console.log('Error createContract: ', error)
-    //   setLoading(false)
-    // }
-  }
-  const search = async (): Promise<any> => {
-    setLoading(true)
-    router.push('/vote', { query: searchInput })
+    try {
+      const data = await tempContract.methods.walletOfOwner(account).call()
+      console.log('data', data)
+    } catch (err) {
+      console.log('err', err)
+    }
   }
 
-  // React.useEffect(() => {
-  //   if (!!account && !!library) {
-  //     init(account, library)
-  //   }
-  //   return null
-  // }, [account, library, chainId, address])
+  React.useEffect(() => {
+    if (isActive && isActiveNetwork && chainId) {
+      init()
+    }
+  }, [isActive, chainId])
 
   return (
     <Base>
@@ -102,172 +71,19 @@ const Stake: React.FC = () => {
           Vote
         </Typography>
         <Typography mb={3} color='text.secondary'>
-          Liquid Democracy System
+          Liquid Democracy Voting with Element NFTs.
         </Typography>
-        {address ? (
-          <Box>
-            <Typography variant='h6' color='text.primary'>
-              Proposals
-            </Typography>
-            <ProposalList contract={contract} count={proposalCount} />
-            <AddVoter contract={contract} />
-            <NewProposal contract={contract} />
-            <hr />
-            <hr />
-            <Button
-              disabled={loading}
-              variant='contained'
-              onClick={() => {
-                setAddress(undefined)
-                router.push('/vote')
-              }}
-              className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
-            >
-              Create new Governance
-            </Button>
-          </Box>
-        ) : (
-          <Box>
-            <Typography variant='h5' fontWeight='bold'>
-              Search
-            </Typography>
-            <Grid
-              container
-              spacing={0}
-              direction='row'
-              alignItems='center'
-              justifyContent='center'
-            >
-              <Grid item xs={8}>
-                <Typography
-                  variant='body1'
-                  align='center'
-                  color='#fff'
-                  gutterBottom
-                >
-                  Search for a Liquid Democracy.
-                </Typography>
-                <Box
-                  component='form'
-                  sx={{
-                    '& > :not(style)': { m: 1, margin: '20px' },
-                  }}
-                >
-                  <TextField
-                    fullWidth
-                    disabled={loading}
-                    placeholder='Address'
-                    onChange={(e: any) =>
-                      updateSearchInput({
-                        ...searchInput,
-                        addr: e.target.value,
-                      })
-                    }
-                  />
-                  <Box
-                    display='flex'
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent='center'
-                  >
-                    {loading ? (
-                      <CircularProgress color='primary' size='5em' />
-                    ) : null}
 
-                    <Typography
-                      variant='body1'
-                      align='center'
-                      color='#fff'
-                      gutterBottom
-                    >
-                      {loading ? loadingMessage : ''}
-                    </Typography>
-                    <br />
-                    <Button
-                      disabled={loading}
-                      variant='contained'
-                      onClick={search}
-                      className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
-                    >
-                      Search
-                    </Button>
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
-            <br />
-            <br />
-            <Typography variant='h4' color='text.primary'>
-              Create a new Liquid Democracy
-            </Typography>
-            <Grid
-              container
-              spacing={0}
-              direction='row'
-              alignItems='center'
-              justifyContent='center'
-              // style={{ minHeight: '100vh' }}
-            >
-              <Grid item xs={8}>
-                <Typography
-                  variant='body1'
-                  align='center'
-                  color='#fff'
-                  gutterBottom
-                >
-                  Create our own Liquid Democracy where people can create and
-                  vote on proposals.
-                </Typography>
-                <Box
-                  component='form'
-                  sx={{
-                    '& > :not(style)': { m: 1, margin: '20px' },
-                  }}
-                >
-                  <Input
-                    disabled={loading}
-                    placeholder='Name'
-                    className=''
-                    onChange={(e: any) =>
-                      updateFormInput({ ...formInput, name: e.target.value })
-                    }
-                  />
-                  <Box
-                    display='flex'
-                    flexDirection='column'
-                    alignItems='center'
-                    justifyContent='center'
-                  >
-                    {loading ? (
-                      <CircularProgress color='primary' size='5em' />
-                    ) : null}
-
-                    <Typography
-                      variant='body1'
-                      align='center'
-                      color='#fff'
-                      gutterBottom
-                    >
-                      {loading ? loadingMessage : ''}
-                    </Typography>
-                    <br />
-                    <Button
-                      disabled={loading}
-                      variant='contained'
-                      onClick={createContract}
-                      className='font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg'
-                    >
-                      Create
-                    </Button>
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-        )}
+        <Box>
+          <Typography variant='h6' color='text.primary'>
+            Proposals
+          </Typography>
+          <ProposalList contract={contract} count={proposalCount} />
+          {/* <AddVoter contract={contract} /> */}
+        </Box>
       </Container>
     </Base>
   )
 }
 
-export default Stake
+export default Vote
