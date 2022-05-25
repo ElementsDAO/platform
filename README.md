@@ -1,5 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
-
 # Elements Platform
 
 Elements is an Incentivised crowd investment platform to fund renewable energy systems.
@@ -56,7 +54,6 @@ Contributions to Elements are welcome by anyone interested in writing more tests
 When making a pull request, ensure that:
 
 - All tests pass.
-- Code coverage remains at 100% (coverage tests must currently be written in hardhat).
 - All new code adheres to the style guide:
   - All lint checks pass.
 - A descriptive summary of the PR has been provided.
